@@ -1,0 +1,2891 @@
+<html>
+	<head>
+		<title> Colliding Blocks Counting PI - 3Blue1Brown</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<link href='https://fonts.googleapis.com/css?family=Alegreya Sans SC' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Handlee' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=Caveat Brush' rel='stylesheet'>
+		<link href='https://fonts.googleapis.com/css?family=McLaren' rel='stylesheet'>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!-- Google Analytics Code -->
+		<script type="application/ld+json">
+			{
+			  "@type": "Projects",
+			  "name": "Colliding Blocks Counting PI - 3Blue1Brown",
+			  "author": "Prajwal DSouza",
+			  "description": "A block collision simulation based on a 3Blue1Brown video."
+			  }
+		</script>
+		  <meta charset="UTF-8">
+  		  <meta name="description" content="A block collision simulation based on a 3Blue1Brown video.">
+		  <meta name="keywords" content="3Blue1Brown, blockcollision, PI, value of pi, counting problem, prajwalsouza, Prajwal DSouza">
+		  <meta name="author" content="Prajwal DSouza">
+		  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+	</head>
+	<body style='margin:0px;width:100%; height: 100%;'>
+		<div id="containAll" style='margin:0px;width:100%; height: 100%; font-size: 0;'> 
+			<div id="mainText" style='margin:0px;width:100%; height: 5%;overflow: hidden;position: fixed;z-index: 5; background: none;'>
+				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;">
+					<tr>
+						<td colspan="4" id='titletext' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 3vmin;"><a id="titletextlink" href="https://www.youtube.com/watch?v=HEfHFsfGXjs" target="_blank" style="text-decoration: none; color: hsla(210,100%,50%,1); ">Counting π</a>
+						</td>
+						<td colspan="1" id='websitetext' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin;"><a id="websitetextlink" href="https://prajwalsouza.github.io" target="_blank" style="text-decoration: none; color: hsla(210,100%,50%,1); ">prajwalsouza.github.io</a>
+						</td>
+						<td colspan="1" id='darkmodetext' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 1.5vmin; color: hsla(210,100%,0%,1); cursor: pointer;">Dark Mode
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="minisimulationbar" style='margin:0px;width:100%; height: 5%;overflow: hidden;position: fixed;z-index: 4'>
+				
+			</div>
+			<div id="spaceholder" style='margin:0px;width:100%; height: 5%;overflow: hidden;position: relative; display: inline-block; opacity: 0;'>
+			</div>
+			<div id="mainsimulationH" style='margin:0px;width:100%; height: 35%;overflow: hidden;position: relative; display: inline-block; box-shadow: inset 0px 0px 20px rgba(0,0,0,0.3);'>
+			</div>
+			<div id="mainsimulationcontrols" style='margin:0px;width:100%; height: 10%;overflow: hidden;position: relative; display: inline-block;border-bottom: 2px solid hsla(190, 100%,0%, 0.2);'>
+				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;">
+					<tr>
+						<td colspan="4" rowspan="2" id='aboutspace' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin;">An interactive based on a <a id="3b1bvideolink" href="https://www.youtube.com/watch?v=HEfHFsfGXjs" target="_blank" style="text-decoration: none; color: hsla(210,100%,50%,1); ">3Blue1Brown video</a> and G Galperin's work <a id="galperinlink" href="https://www.maths.tcd.ie/~lebed/Galperin.%20Playing%20pool%20with%20pi.pdf" target="_blank" style="text-decoration: none; color: hsla(210,100%,50%,1); "> "Playing Pool with π" </a>
+						</td>
+						<td colspan="1" id='spacer' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 1.8vmin; ">
+						</td>
+						<td colspan="1" id='mass2text' style="text-align: left; vertical-align: bottom; border-right: 0px solid black; font-size: 1.8vmin; color: hsla(260, 100%, 50%, 1); ">Mass 2
+						</td>
+						<td colspan="1" id='initialvelocity2text' style="text-align: left; vertical-align: bottom; border-right: 0px solid black; font-size: 1.8vmin; color: hsla(260, 100%, 50%, 1); ">Initial Velocity 2
+						</td>
+						<td colspan="1" id='initialvelocity1text' style="text-align: left; vertical-align: bottom; border-right: 0px solid black; font-size: 1.8vmin; color: hsla(190, 100%, 50%, 1); ">Initial Velocity 1
+						</td>
+						
+						
+					</tr>
+					<tr>
+						<td colspan="1" id='spacer2' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 1.8vmin; ">
+						</td>
+						<td colspan="1" style="text-align: left; vertical-align: middle; border-right: 0px solid white; color:black;font-size: 1.8vmin; background: hsla(260, 100%, 0%, 0);">
+							<input id='mass2input' type="number" min = '1' step ='1' value='100' style="border: 0px; border-bottom: 2px solid hsla(260, 100%, 50%,1); height: 70%; width: 90%; text-align: left; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background-color: hsla(190, 100%, 0%, 0.05);"></input>
+									
+						</td>
+						<td colspan="1" style="text-align: left; vertical-align: middle; border-right: 0px solid black; color:black;font-size: 1.8vmin; background: hsla(190, 100%, 0%, 0);">
+							<input id='initialvelocity2input' type="number" step ='any' value='-1' style="border: 0px; border-bottom: 2px solid hsla(260, 100%, 50%,1); height: 70%; width: 90%; text-align: left; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background-color: hsla(190, 100%, 0%, 0.05);"></input>
+									
+						</td>
+						<td colspan="1" style="text-align: left; vertical-align: middle; border-right: 0px solid black; color:black;font-size: 1.8vmin; background: hsla(190, 100%, 0%, 0);">
+							<input id='initialvelocity1input' type="number" step ='any' value='0' style="border: 0px; border-bottom: 2px solid hsla(190, 100%, 50%,1); height: 70%; width: 90%; text-align: left; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background-color: hsla(190, 100%, 0%, 0.05);"></input>
+									
+						</td>
+						
+						
+					</tr>
+				</table>
+			</div>
+			<div id="velocityphasespacegraphholder" style='margin:0px;width:48%; height: 45%;overflow: hidden;position: relative; display: inline-block; '>
+				<div id="velocityphasespacegraphbox" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: relative; display: inline-block;'>
+				
+				</div>
+			</div>
+			<div id="divider1" style='margin:0px;width:4%; height: 45%;overflow: hidden;position: relative; display: inline-block; '>
+			</div>
+			<div id="positionphasespacegraphholder" style='margin:0px;width:48%; height: 45%;overflow: hidden;position: relative; display: inline-block;'>	
+				<div id="positionphasespacegraphspacer" style='margin:0px;width:0%; height: 100%;overflow: hidden;position: relative; display: inline-block; '>
+				
+				</div>
+				<div id="positionphasespacegraphbox" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: relative; display: inline-block;'>
+				
+				</div>
+			</div>
+			<div id="velocityphasespacegraphTextholder" style='margin:0px;width:50%; height: 5%;overflow: hidden;position: relative; display: inline-block; border-bottom: 2px solid hsla(190, 100%,0%, 0.2);'>
+				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;">
+					<tr>
+						<td colspan="1" id='velocityphasespacegraphText' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin;">Velocity Phase Space
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="positionphasespacegraphTextholder" style='margin:0px;width:50%; height: 5%;overflow: hidden;position: relative; display: inline-block;border-bottom: 2px solid hsla(190, 100%,0%, 0.2);'>
+				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;">
+					<tr>
+						<td colspan="1" id='positionphasespacegraphText' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin;">Position Phase Space
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="transformedvelocityphasespacegraphholder" style='margin:0px;width:50%; height: 50%;overflow: hidden;position: relative; display: inline-block;'>
+				<div id="transformedvelocityphasespacegraphspacer" style='margin:0px;width:0%; height: 0%;overflow: hidden;position: relative; display: inline-block;'>
+				
+				</div>
+				<div id="transformedvelocityphasespacegraphbox" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: relative; display: inline-block;'>
+				
+				</div>
+			</div>
+			<div id="transformedpositionphasespacegraphholder" style='margin:0px;width:50%; height: 50%;overflow: hidden;position: relative; display: inline-block;'>
+				<div id="transformedpositionphasespacegraphbox" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: relative; display: inline-block;'>
+				
+				</div>
+			</div>
+			<div id="transformedvelocityphasespacegraphTextholder" style='margin:0px;width:50%; height: 5%;overflow: hidden;position: relative; display: inline-block; border-bottom: 2px solid hsla(190, 100%,0%, 0.2);'>
+				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;">
+					<tr>
+						<td colspan="1" id='transformedvelocityphasespacegraphText' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin;"> Transformed Velocity Phase Space
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="transformedpositionphasespacegraphTextholder" style='margin:0px;width:50%; height: 5%;overflow: hidden;position: relative; display: inline-block;border-bottom: 2px solid hsla(190, 100%,0%, 0.2);'>
+				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;">
+					<tr>
+						<td colspan="1" id='transformedpositionphasespacegraphText' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin;"> Transformed Position Phase Space
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="billiardsgraphholder" style='margin:0px;width:100%; height: 60%;overflow: hidden;position: relative; display: inline-block;'>
+				<div id="billiardsgraphbox" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: relative; display: inline-block;'>
+				
+				</div>
+			</div>
+			<div id="billiardsgraphTextholder" style='margin:0px;width:100%; height: 5%;overflow: hidden;position: relative; display: inline-block;border-bottom: 2px solid hsla(190, 100%,0%, 0.2);'>
+				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;">
+					<tr>
+						<td colspan="1" id='billiardsgraphText' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin;"> Connections to light bouncing between two mirrors
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="worldlinegraphholder" style='margin:0px;width:100%; height: 90%;overflow: hidden;position: relative; display: inline-block;'>
+				<div id="worldlinegraphbox" style='margin:0px;width:100%; height: 100%;overflow: hidden;position: relative; display: inline-block;'>
+				
+				</div>
+			</div>
+			<div id="worldlineTextholder" style='margin:0px;width:100%; height: 5%;overflow: hidden;position: relative; display: inline-block;border-bottom: 2px solid hsla(190, 100%,0%, 0.2);'>
+				<table width="100%" height='100%' style="border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;">
+					<tr>
+						<td colspan="1" id='worldlineText' style="text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin;"> Worldline Diagram
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+		
+		<script>
+
+		fixedInnerWValue = window.innerWidth
+		fixedInnerHValue = window.innerHeight
+
+		if (fixedInnerWValue < fixedInnerHValue) {
+			$('#positionphasespacegraphholder').insertAfter('#mainsimulationcontrols')
+			$('#positionphasespacegraphTextholder').insertAfter('#positionphasespacegraphholder');
+			$('#transformedpositionphasespacegraphholder').insertAfter('#positionphasespacegraphTextholder');
+			$('#transformedpositionphasespacegraphTextholder').insertAfter('#transformedpositionphasespacegraphholder');
+			$('#billiardsgraphholder').insertAfter('#transformedpositionphasespacegraphTextholder');
+			$('#billiardsgraphTextholder').insertAfter('#billiardsgraphholder');
+			$('#velocityphasespacegraphholder').insertAfter('billiardsgraphTextholder')
+			$('#velocityphasespacegraphTextholder').insertAfter('#velocityphasespacegraphholder');
+			$('#transformedvelocityphasespacegraphholder').insertAfter('#velocityphasespacegraphTextholder');
+			$('#transformedvelocityphasespacegraphTextholder').insertAfter('#transformedvelocityphasespacegraphholder');
+
+			document.getElementById('mainsimulationH').style.height = '25%'
+			document.getElementById('mainsimulationcontrols').style.height = '20%'
+
+			document.getElementById('titletext').setAttribute('colspan', '2')
+			document.getElementById('websitetext').setAttribute('colspan', '1')
+			document.getElementById('darkmodetext').setAttribute('colspan', '1')
+
+
+			document.getElementById('positionphasespacegraphholder').style.width = '100%'
+			document.getElementById('velocityphasespacegraphholder').style.width = '100%'
+			document.getElementById('transformedpositionphasespacegraphholder').style.width = '100%'
+			document.getElementById('transformedvelocityphasespacegraphholder').style.width = '100%'
+			document.getElementById('positionphasespacegraphTextholder').style.width = '100%'
+			document.getElementById('velocityphasespacegraphTextholder').style.width = '100%'
+			document.getElementById('transformedpositionphasespacegraphTextholder').style.width = '100%'
+			document.getElementById('transformedvelocityphasespacegraphTextholder').style.width = '100%'
+			document.getElementById('divider1').style.width = '0%'
+			document.getElementById('divider1').style.height = '0%'
+
+			document.getElementById('titletext').style.fontSize = '4vmin'
+
+			document.getElementById('positionphasespacegraphText').style.fontSize = '3vmin'
+			document.getElementById('velocityphasespacegraphText').style.fontSize = '3vmin'
+			document.getElementById('transformedpositionphasespacegraphText').style.fontSize = '3vmin'
+			document.getElementById('transformedvelocityphasespacegraphText').style.fontSize = '3vmin'
+			document.getElementById('billiardsgraphText').style.fontSize = '3vmin'
+			document.getElementById('worldlineText').style.fontSize = '3vmin'
+
+
+			// document.getElementById('positionphasespacegraphText').style.fontSize = '5vmin'
+
+			
+			document.getElementById('mainsimulationcontrols').innerHTML = "<table width='100%' height='100%' style='border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;'><tr><td colspan = '2' id='aboutspace' style='text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin;'>An interactive based on a <a id='3b1bvideolink' href='https://www.youtube.com/watch?v=HEfHFsfGXjs' target='_blank' style='text-decoration: none; color: hsla(210,100%,50%,1); '>3Blue1Brown video</a> and G Galperin's work <a id='galperinlink' href='https://www.maths.tcd.ie/~lebed/Galperin.%20Playing%20pool%20with%20pi.pdf' target='_blank' style='text-decoration: none; color: hsla(210,100%,50%,1); '> 'Playing Pool with π' </a></td></tr><tr><td id='mass2text' style='text-align: center; vertical-align: middle; border-right: 1px solid black; font-size: 1.8vmin; color: hsla(190, 100%, 50%, 1); '>Mass 2</td><td style='text-align: center; vertical-align: middle; border-right: 1px solid black; color:black;font-size: 1.8vmin; background: hsla(190, 100%, 0%, 0.05);'><input id='mass2input' type='number' min = '1' step ='1' value='100' style='border: none; height: 70%; width: 100%; text-align: center; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background: transparent;'></input></td></tr><tr><td id='initialvelocity2text' style='text-align: center; vertical-align: middle; border-right: 1px solid black; font-size: 1.8vmin; color: hsla(190, 100%, 50%, 1); '>Initial Velocity 2</td><td style='text-align: center; vertical-align: middle; border-right: 1px solid black; color:black;font-size: 1.8vmin; background: hsla(190, 100%, 0%, 0.05);'><input id='initialvelocity2input' type='number' step ='any' value='-1' style='border: none; height: 70%; width: 100%; text-align: center; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background: transparent;'></input></td></tr><tr><td id='initialvelocity1text' style='text-align: center; vertical-align: middle; border-right: 1px solid black; font-size: 1.8vmin; color: hsla(190, 100%, 50%, 1); '>Initial Velocity 1</td><td style='text-align: center; vertical-align: middle; border-right: 1px solid black; color:black;font-size: 1.8vmin; background: hsla(190, 100%, 0%, 0.05);'><input id='initialvelocity1input' type='number' step ='any' value='0' style='border: none; height: 70%; width: 100%; text-align: center; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background: transparent;'></input></td></tr></table>"
+		}
+		// $('#transformedpositionphasespacegraphTextholder').insertAfter('#positionphasespacegraphTextholder');
+		// $('#transformedpositionphasespacegraphTextholder').insertAfter('#positionphasespacegraphTextholder');
+
+		// $('#velocityphasespacegraphholder').insertAfter('#billiardsgraphholder');
+		// $('#transformedvelocityphasespacegraphholder').insertAfter('#billiardsgraphholder');
+		// // $('#positionphasespacegraphholder').insertBefore('#transformedpositionphasespacegraphholder');
+
+		// if (fixedInnerWValue > fixedInnerHValue) {
+		// 	document.getElementById('containAll').innerHTML = "<div id='minisimulationbar' style='margin:0px;width:100%; height: 5%;overflow: hidden;position: fixed;z-index: 4'></div><div id='spaceholder' style='margin:0px;width:100%; height: 5%;overflow: hidden;position: relative; display: inline-block; opacity: 0;'></div><div id='mainsimulationH' style='margin:0px;width:100%; height: 35%;overflow: hidden;position: relative; display: inline-block; box-shadow: inset 0px 0px 20px rgba(0,0,0,0.3);'></div><div id='mainsimulationcontrols' style='margin:0px;width:100%; height: 10%;overflow: hidden;background: white;position: relative; display: inline-block;border-bottom: 2px solid hsla(190, 100%,0%, 0.2);'><table width='100%' height='100%' style='border: 0px solid black; border-collapse: collapse; table-layout: fixed; font-weight: bold; font-family: McLaren; font-size: 1vw;'><tr><td colspan='10' id='aboutspace' style='text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 2vmin;'>An interactive based on a <a href='https://www.youtube.com/watch?v=HEfHFsfGXjs' target='_blank' style='text-decoration: none; color: hsla(210,100%,50%,1); '>3Blue1Brown video</a> and G Galperin's work <a href='https://www.maths.tcd.ie/~lebed/Galperin.%20Playing%20pool%20with%20pi.pdf' target='_blank' style='text-decoration: none; color: hsla(210,100%,50%,1); '> 'Playing Pool with π' </a></td><td colspan='1' id='spacer' style='text-align: center; vertical-align: middle; border-right: 0px solid black; font-size: 1.8vmin; '></td><td colspan='1' id='mass2text' style='text-align: center; vertical-align: middle; border-right: 1px solid black; font-size: 1.8vmin; color: hsla(190, 100%, 50%, 1); '>Mass 2</td><td colspan='1' style='text-align: center; vertical-align: middle; border-right: 1px solid black; color:black;font-size: 1.8vmin; background: hsla(190, 100%, 0%, 0.05);'><input id='mass2input' type='number' min = '1' step ='1' value='100' style='border: none; height: 70%; width: 100%; text-align: center; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background: transparent;'></input></td><td colspan='1' id='initialvelocity2text' style='text-align: center; vertical-align: middle; border-right: 1px solid black; font-size: 1.8vmin; color: hsla(190, 100%, 50%, 1); '>Initial Velocity 2</td><td colspan='1' style='text-align: center; vertical-align: middle; border-right: 1px solid black; color:black;font-size: 1.8vmin; background: hsla(190, 100%, 0%, 0.05);'><input id='initialvelocity2input' type='number' step ='any' value='-1' style='border: none; height: 70%; width: 100%; text-align: center; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background: transparent;'></input></td><td colspan='1' id='initialvelocity1text' style='text-align: center; vertical-align: middle; border-right: 1px solid black; font-size: 1.8vmin; color: hsla(190, 100%, 50%, 1); '>Initial Velocity 1</td><td colspan='1' style='text-align: center; vertical-align: middle; border-right: 1px solid black; color:black;font-size: 1.8vmin; background: hsla(190, 100%, 0%, 0.05);'><input id='initialvelocity1input' type='number' step ='any' value='0' style='border: none; height: 70%; width: 100%; text-align: center; font-family: McLaren; font-size: 1.8vmin; font-weight: bold; color: black; background: transparent;'></input></td></tr></table></div><div id='velocityphasespacegraphholder' style='margin:0px;width:48%; height: 45%;overflow: hidden;background: white;position: relative; display: inline-block; '><div id='velocityphasespacegraphbox' style='margin:0px;width:100%; height: 100%;overflow: hidden;background: white;position: relative; display: inline-block;'></div></div><div id='divider1' style='margin:0px;width:4%; height: 45%;overflow: hidden;background: white;position: relative; display: inline-block; '></div><div id='positionphasespacegraphholder' style='margin:0px;width:48%; height: 45%;overflow: hidden;background: white;position: relative; display: inline-block;'<div id='positionphasespacegraphspacer' style='margin:0px;width:0%; height: 100%;overflow: hidden;background: white;position: relative; display: inline-block; '></div><div id='positionphasespacegraphbox' style='margin:0px;width:100%; height: 100%;overflow: hidden;background: white;position: relative; display: inline-block;'></div></div><div id='velocityphasespacegraphTextholder' style='margin:0px;width:50%; height: 5%;overflow: hidden;background: white;position: relative; display: inline-block; border-bottom: 2px solid hsla(190, 100%,0%, 0.2);'><svg id='velocityphasespacegraphText' style='width: 100%; height:100%; font-size: 3vmin; overflow: hidden;background: white; position: relative;'><text x='50%' y='50%' dominant-baseline='middle' text-anchor= 'middle' style='font-weight: bold; font-family: McLaren; font-size: 1vw;'>Velocity Phase Space</text</svg></div><div id='positionphasespacegraphTextholder' style='margin:0px;width:50%; height: 5%;overflow: hidden;background: white;position: relative; display: inline-block;border-bottom: 2px solid hsla(190, 100%,0%, 0.2);'><svg id='positionphasespacegraphText' style='width: 100%; height:100%; font-size: 3vmin; overflow: hidden;background: white; position: relative;'><text x='50%' y='50%' dominant-baseline='middle' text-anchor= 'middle' style='font-weight: bold; font-family: McLaren; font-size: 1vw;'>Position Phase Space</text</svg></div><div id='transformedvelocityphasespacegraphholder' style='margin:0px;width:50%; height: 50%;overflow: hidden;background: white;position: relative; display: inline-block;'><div id='transformedvelocityphasespacegraphspacer' style='margin:0px;width:0%; height: 100%;overflow: hidden;background: white;position: relative; display: inline-block;'></div><div id='transformedvelocityphasespacegraphbox' style='margin:0px;width:100%; height: 100%;overflow: hidden;background: white;position: relative; display: inline-block;'></div></div><div id='transformedpositionphasespacegraphholder' style='margin:0px;width:50%; height: 50%;overflow: hidden;background: white;position: relative; display: inline-block;'><div id='transformedpositionphasespacegraphbox' style='margin:0px;width:100%; height: 100%;overflow: hidden;background: white;position: relative; display: inline-block;'></div></div><div id='transformedvelocityphasespacegraphTextholder' style='margin:0px;width:50%; height: 5%;overflow: hidden;background: white;position: relative; display: inline-block; border-bottom: 2px solid hsla(190, 100%,0%, 0.2);'><svg id='transformedvelocityphasespacegraphText' style='width: 100%; height:100%; font-size: 3vmin; overflow: hidden;background: white; position: relative;'><text x='50%' y='50%' dominant-baseline='middle' text-anchor= 'middle' style='font-weight: bold; font-family: McLaren; font-size: 1vw;'>Transformed Velocity Phase Space</text</svg></div><div id='transformedpositionphasespacegraphTextholder' style='margin:0px;width:50%; height: 5%;overflow: hidden;background: white;position: relative; display: inline-block;border-bottom: 2px solid hsla(190, 100%,0%, 0.2);'><svg id='transformedpositionphasespacegraphText' style='width: 100%; height:100%; font-size: 3vmin; overflow: hidden;background: white; position: relative;'><text x='50%' y='50%' dominant-baseline='middle' text-anchor= 'middle' style='font-weight: bold; font-family: McLaren; font-size: 1vw;'>Transformed Position Phase Space</text</svg></div><div id='billiardsgraphholder' style='margin:0px;width:100%; height: 60%;overflow: hidden;background: white;position: relative; display: inline-block;'><div id='billiardsgraphbox' style='margin:0px;width:100%; height: 100%;overflow: hidden;background: white;position: relative; display: inline-block;'></div></div><div id='billiardsgraphTextholder' style='margin:0px;width:100%; height: 5%;overflow: hidden;background: white;position: relative; display: inline-block;border-bottom: 2px solid hsla(190, 100%,0%, 0.2);'><svg id='billiardsgraphText' style='width: 100%; height:100%; font-size: 3vmin; overflow: hidden;background: white; position: relative;'><text x='50%' y='50%' dominant-baseline='middle' text-anchor= 'middle' style='font-weight: bold; font-family: McLaren; font-size: 1vw;'>Connections to light bouncing between two mirrors</text</svg></div>"
+		// 	 // document.getElementById('velocityphasespacegraphholder').style.width = '100%'
+		// 	// document.getElementById('positionphasespacegraphholder').style.width = '100%'
+		// 	// document.getElementById('transformedvelocityphasespacegraphholder').style.width = '100%'
+		// 	// document.getElementById('transformedpositionphasespacegraphholder').style.width = '100%'
+		// 	// document.getElementById('billiardsgraphholder').style.width = '100%'
+
+		// 	// document.getElementById('velocityphasespacegraphholder').style.order = 3
+		// 	// document.getElementById('positionphasespacegraphholder').style.order = 2
+			
+		// 	// console.log()
+			
+
+		// }
+
+		function graphToSvgY(value, graphymin, graphymax) {
+			if (graphymin == graphymax) {
+				graphymin = graphymin - 1
+				graphymax = graphymax + 1
+				console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+			}
+			if (graphymin > graphymax) {
+				temp = graphymin
+				graphymin = graphymax
+				graphymax = temp
+				console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+			}
+			y = ((-80)/(graphymax - graphymin))*(value - graphymin) + 90
+			return y
+		}
+
+		function graphToScaledY(value, graphymin, graphymax, aspectratio) {
+			if(aspectratio > 1) {
+				if (graphymin == graphymax) {
+					graphymin = graphymin - 1
+					graphymax = graphymax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+				if (graphymin > graphymax) {
+					temp = graphymin
+					graphymin = graphymax
+					graphymax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+				y = ((-80)/(graphymax - graphymin))*(value - graphymin) + 90
+				
+			}
+			else {
+				if (graphymin == graphymax) {
+					graphymin = graphymin - 1
+					graphymax = graphymax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+				if (graphymin > graphymax) {
+					temp = graphymin
+					graphymin = graphymax
+					graphymax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphymax + ' and Min value : ' + graphymin)
+				}
+				aspectratio = 1/aspectratio
+				vl = (100*(1 - aspectratio)/2) + (10*aspectratio)
+				vh = (100*(aspectratio + 1)/2) - (10*aspectratio)
+				y = ((vl - vh)/(graphymax - graphymin))*(value - graphymin) + vh
+				// console.log(x)
+				// console.log(v1, v2)
+				// y = (((v2 - v1)/(100))*(y)) + v1
+			}
+
+			return y
+		}
+
+		function graphToSvgX(value, graphxmin, graphxmax) {
+			if (graphxmin == graphxmax) {
+				graphxmin = graphxmin - 1
+				graphxmax = graphxmax + 1
+				console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+			}
+			if (graphxmin > graphxmax) {
+				temp = graphxmin
+				graphxmin = graphxmax
+				graphxmax = temp
+				console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+			}
+			x = ((80)/(graphxmax - graphxmin))*(value - graphxmin) + 10
+			return x
+		}
+
+		function graphToScaledX(value, graphxmin, graphxmax, aspectratio) {
+			if (aspectratio <= 1) {
+				if (graphxmin == graphxmax) {
+					graphxmin = graphxmin - 1
+					graphxmax = graphxmax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+				if (graphxmin > graphxmax) {
+					temp = graphxmin
+					graphxmin = graphxmax
+					graphxmax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+				x = ((80)/(graphxmax - graphxmin))*(value - graphxmin) + 10
+			}
+			else {
+				if (graphxmin == graphxmax) {
+					graphxmin = graphxmin - 1
+					graphxmax = graphxmax + 1
+					console.log('Conversion error, maximum value is equal to minimum value. Max value was raised by 1 and Min value was reduced by 1. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+				if (graphxmin > graphxmax) {
+					temp = graphxmin
+					graphxmin = graphxmax
+					graphxmax = temp
+					console.log('Conversion error, maximum value less than minimum value. Values were swapped. Max value : ' + graphxmax + ' and Min value : ' + graphxmin)
+				}
+				vl = (100*(1 - aspectratio)/2) + (10*aspectratio)
+				vh = (100*(aspectratio + 1)/2) - (10*aspectratio)
+				x = ((vh - vl)/(graphxmax - graphxmin))*(value - graphxmin) + vl
+				// console.log(x)
+				// console.log(v1, v2)
+				// y - y1 = (y2 - y1)/(x2 - x1) * (x - x1)
+				// x = (((v2 - v1)/(90))*(x - 10)) + v1
+				// console.log(x)
+				// console.log('_') 
+			}
+			return x
+		}
+
+
+		function isInt(n){
+			return Number(n) === n && n % 1 === 0;
+		}
+
+		function isFloat(n){
+			return Number(n) === n && n % 1 !== 0;
+		}
+
+
+
+
+		function gridtickvalues(valmin, valmax, ticksexpected) {
+			expstring = ((valmax - valmin)/ticksexpected).toExponential()
+			majorgridorder = parseFloat(Math.pow(10 , expstring.slice(expstring.indexOf('e') + 1)))
+			// console.log(expstring)
+			if (expstring.indexOf('.') != -1) {
+				majorgriddivision = parseFloat(expstring.slice(0, expstring.indexOf('.'))*majorgridorder)	
+			}
+			else {
+				majorgriddivision = parseFloat(expstring.slice(0, expstring.indexOf('e'))*majorgridorder)
+
+			}
+			
+			// console.log(majorgriddivision)
+			// console.log(majorgridorder)
+
+			integerchoices = [1,2,5,10]
+			for(choice = 0; choice < integerchoices.length - 1; choice++) {
+				if (majorgriddivision < integerchoices[choice + 1]*majorgridorder) {
+					majorgriddivisionchoice = majorgridorder*integerchoices[choice]
+					break
+				}
+			}
+			// console.log(majorgriddivisionchoice)
+
+			if(valmin > 0) {
+				majorgridstart = Math.ceil(valmin/majorgriddivisionchoice)*majorgriddivisionchoice;
+				majorgridstart = majorgridstart - majorgriddivisionchoice
+			}
+			else if(valmin < 0) {
+				majorgridstart = Math.floor(valmin/majorgriddivisionchoice)*majorgriddivisionchoice;
+			}
+			else{
+				majorgridstart = majorgriddivisionchoice;
+			}
+
+			// majorgridstart = majorgridstart - majorgriddivisionchoice
+			// console.log(majorgridstart)
+
+			majortickvalues = []
+			for(majoraxispoint = majorgridstart; majoraxispoint < (valmax + majorgriddivisionchoice); majoraxispoint = majoraxispoint + majorgriddivisionchoice) {
+				majortickvalues.push(majoraxispoint)
+			}
+
+			return majortickvalues
+		}
+
+		function addGraph(parentdiv, name, gdata) {
+			gdata = gdata || {}
+
+			gdata.name = name || 'graph' + Math.random().toString()
+			gdata.axislocationX = gdata.axislocationX || 0
+			gdata.axislocationY = gdata.axislocationY || 0 
+			gdata.xmin = gdata.xmin || -1 
+			gdata.xmax = gdata.xmax || 1
+			gdata.ymin = gdata.ymin || -1
+			gdata.ymax = gdata.ymax || 1
+			gdata.xaxisvisibility = gdata.xaxisvisibility || 'yes'
+			gdata.yaxisvisibility = gdata.yaxisvisibility || 'yes'
+
+			gdata.xaxislabelvisibility = gdata.xaxislabelvisibility || 'yes' 
+			gdata.yaxislabelvisibility = gdata.yaxislabelvisibility || 'yes'
+			
+			gdata.xmajorgridlinesvisibility = gdata.xmajorgridlinesvisibility || 'yes'
+			gdata.ymajorgridlinesvisibility = gdata.ymajorgridlinesvisibility || 'yes'
+
+			var svgElement = document.createElementNS("http://www.w3.org/2000/svg", 'svg');
+			svgElement.setAttribute('height',"100%");
+			svgElement.setAttribute('width', '100%');
+			svgElement.setAttribute('viewBox',"0 0 100 100")
+			// svgElement.setAttribute('preserveAspectRatio',"none")
+			svgElement.setAttribute('id', name)
+			svgElement.style.position = "absolute";
+			parentdiv.appendChild(svgElement)
+			gdata.svgElement = svgElement
+			gdata.parentElement = parentdiv
+
+			gdata.fontSize = gdata.fontSize || 5
+
+			gdata.gridlinenumber = gdata.gridlinenumber || 10
+			ticks = gdata.gridlinenumber
+
+
+			aratio = parentdiv.offsetWidth/parentdiv.offsetHeight
+
+
+			if (darkmode) {
+				gdata.yaxiscolor = gdata.yaxiscolor || 'hsla(0, 100%, 100%, 1)'			
+				gdata.xaxiscolor = gdata.xaxiscolor || 'hsla(0, 100%, 100%, 1)'			
+				gdata.xmajorgridlabelcolor = gdata.xmajorgridlabelcolor || 'hsla(0, 100%, 100%, 1)'
+				gdata.ymajorgridlabelcolor = gdata.ymajorgridlabelcolor || 'hsla(0, 100%, 100%, 1)'
+				gdata.xmajorgridcolor = gdata.xmajorgridcolor || 'hsla(0, 100%, 100%, 1)'
+				gdata.ymajorgridcolor = gdata.ymajorgridcolor || 'hsla(0, 100%, 100%, 1)'
+			}
+
+			gdata.yaxisthickness = gdata.yaxisthickness || 0.5
+			gdata.yaxiscolor = gdata.yaxiscolor || 'hsla(0, 50%, 0%, 1)'
+
+
+			if (gdata.yaxisvisibility == 'yes') {
+				var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+				lineElement.setAttribute('x1', graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) + '%');
+				lineElement.setAttribute('y1', graphToScaledY(gdata.ymax, gdata.ymin, gdata.ymax, aratio) + '%');
+				lineElement.setAttribute('vector-effect','non-scaling-stroke');
+				lineElement.setAttribute('x2', graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) + '%')
+				lineElement.setAttribute('y2', graphToScaledY(gdata.ymin, gdata.ymin, gdata.ymax, aratio) + '%');
+				lineElement.setAttribute('id', gdata.name + '-yaxis')
+				lineElement.style.stroke = gdata.yaxiscolor
+				lineElement.style.strokeWidth = gdata.yaxisthickness + '%';
+				gdata.yaxisElement = lineElement
+				svgElement.appendChild(lineElement);
+			}
+
+			gdata.xaxisthickness = gdata.xaxisthickness || 0.5
+			gdata.xaxiscolor = gdata.xaxiscolor || 'hsla(0, 50%, 0%, 1)'
+
+			
+			if (gdata.xaxisvisibility == 'yes') {
+				var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+				lineElement.setAttribute('x1', graphToScaledX(gdata.xmin, gdata.xmin, gdata.xmax, aratio) + '%');
+				lineElement.setAttribute('y1', graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) + '%');
+				lineElement.setAttribute('vector-effect','non-scaling-stroke');
+				lineElement.setAttribute('x2', graphToScaledX(gdata.xmax, gdata.xmin, gdata.xmax, aratio) + '%')
+				lineElement.setAttribute('y2', graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) + '%');
+				lineElement.setAttribute('id', gdata.name + '-xaxis')
+				lineElement.style.stroke = gdata.xaxiscolor
+				lineElement.style.strokeWidth = gdata.xaxisthickness + '%';
+				gdata.xaxisElement = lineElement
+				svgElement.appendChild(lineElement);
+			}
+
+
+			gdata.xmajorgridcolor = gdata.xmajorgridcolor || 'hsla(190, 0%, 50%, 1)'
+			gdata.xmajorgridthickness = gdata.xmajorgridthickness || 0.3
+
+
+			if (gdata.xmajorgridlinesvisibility == 'yes') {
+				xmajortickvalues = gridtickvalues(gdata.xmin, gdata.xmax, ticks)
+				gdata.xmajorgridElements = []
+				for (m = 0; m < xmajortickvalues.length; m++) {
+					ticklocation = xmajortickvalues[m]
+					var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+					lineElement.setAttribute('x1', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) + '%');
+					lineElement.setAttribute('y1', graphToScaledY(gdata.ymin, gdata.ymin, gdata.ymax, aratio) + '%');
+					lineElement.setAttribute('vector-effect','non-scaling-stroke');
+					lineElement.setAttribute('x2', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) + '%')
+					lineElement.setAttribute('y2', graphToScaledY(gdata.ymax, gdata.ymin, gdata.ymax, aratio) + '%');
+					lineElement.setAttribute('id', gdata.name + '-xmajorgridline-' + m)
+					lineElement.style.stroke = gdata.xmajorgridcolor
+					lineElement.style.strokeWidth = gdata.xmajorgridthickness + '%';
+					gdata.xmajorgridElements.push(lineElement)
+					svgElement.appendChild(lineElement);
+				}
+				gdata.xmajorgridticks = xmajortickvalues
+			}
+
+			gdata.ymajorgridcolor = gdata.ymajorgridcolor || 'hsla(190, 0%, 50%, 1)'
+			gdata.ymajorgridthickness = gdata.ymajorgridthickness || 0.3
+
+
+			if (gdata.ymajorgridlinesvisibility == 'yes') {
+				ymajortickvalues = gridtickvalues(gdata.ymin, gdata.ymax, ticks)
+				gdata.ymajorgridElements = []
+				for (m = 0; m < ymajortickvalues.length; m++) {
+					ticklocation = ymajortickvalues[m]
+					var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+					lineElement.setAttribute('x1', graphToScaledX(gdata.xmin, gdata.xmin, gdata.xmax, aratio) + '%');
+					lineElement.setAttribute('y1', graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + '%');
+					lineElement.setAttribute('vector-effect','non-scaling-stroke');
+					lineElement.setAttribute('x2', graphToScaledX(gdata.xmax, gdata.xmin, gdata.xmax, aratio) + '%')
+					lineElement.setAttribute('y2', graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + '%');
+					lineElement.setAttribute('id', gdata.name + '-ymajorgridline-' + m)
+					lineElement.style.stroke = gdata.ymajorgridcolor
+					lineElement.style.strokeWidth = gdata.ymajorgridthickness + '%';
+					gdata.ymajorgridElements.push(lineElement)
+					svgElement.appendChild(lineElement);
+				}
+				gdata.ymajorgridticks = ymajortickvalues
+			}
+
+			
+
+			gdata.ymajorgridlabelvisibility = gdata.ymajorgridlabelvisibility || 'yes'
+			gdata.ymajorgridlabelcolor = gdata.ymajorgridlabelcolor || 'hsla(190, 0%, 50%, 1)'
+
+
+			gdata.ymajorgridlabelshift = gdata.ymajorgridlabelshift || 0.1
+			gdata.xmajorgridlabelshift = gdata.xmajorgridlabelshift || 0.1
+
+			gdata.xmajorgridlabelvisibility = gdata.xmajorgridlabelvisibility || 'yes'
+			gdata.xmajorgridlabelcolor = gdata.xmajorgridlabelcolor || 'hsla(190, 0%, 50%, 1)'
+
+
+
+			gdata.xlabelexclusionsstart = gdata.xlabelexclusionsstart || 0
+			gdata.xlabelexclusionsend = gdata.xlabelexclusionsend || 0
+
+			gdata.ylabelexclusionsstart = gdata.ylabelexclusionsstart || 0
+			gdata.ylabelexclusionsend = gdata.ylabelexclusionsend || 0
+
+			if (gdata.ymajorgridlabelvisibility == 'yes') {
+				gdata.ymajorlabelsElements = []
+				ymajortickvalues = gridtickvalues(gdata.ymin, gdata.ymax, ticks)
+				labelylocationX = gdata.axislocationX
+				if (graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) < 0) {
+					labelylocationX = gdata.xmin
+				}
+				if (graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) > 100) {
+					labelylocationX = gdata.xmax
+				}
+				for (m = gdata.ylabelexclusionsstart; m < ymajortickvalues.length - gdata.ylabelexclusionsend; m++) {
+					ticklocation = ymajortickvalues[m]
+
+					var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+					
+
+					if(isInt(ticklocation)) {
+						textElement.innerHTML = ticklocation
+					}
+					else {
+						ticklocation = ticklocation.toFixed(1)
+						textElement.innerHTML = ticklocation
+						if(ticklocation == 0) {
+							textElement.innerHTML = 0
+						}
+
+					}
+
+
+					textElement.setAttribute('x', graphToScaledX(labelylocationX, gdata.xmin, gdata.xmax, aratio) + 0.5 + gdata.ymajorgridlabelshift + '%');
+					textElement.setAttribute('y',graphToScaledY(ticklocation, gdata.ymin, gdata.ymax, aratio) + 0.5 + '%');
+					textElement.setAttribute('id',name + '-yticklabel-' + m)
+					textElement.style.fontSize = gdata.fontSize
+					textElement.style.fontFamily = 'Calibri'
+					textElement.style.fill = gdata.ymajorgridlabelcolor
+					svgElement.appendChild(textElement);
+
+					gdata.ymajorlabelsElements.push(textElement)
+					
+				}
+			}
+
+
+			if (gdata.xmajorgridlabelvisibility == 'yes') {
+				gdata.xmajorlabelsElements = []
+				xmajortickvalues = gridtickvalues(gdata.xmin, gdata.xmax, ticks)
+				labelxlocationY = gdata.axislocationY
+				if (graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) < 0) {
+					labelxlocationY = gdata.ymin
+				}
+				if (graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) > 100) {
+					labelxlocationY = gdata.ymax
+				}
+
+
+				for (m = gdata.xlabelexclusionsstart; m < xmajortickvalues.length - gdata.xlabelexclusionsend; m++) {
+					ticklocation = xmajortickvalues[m]
+
+					var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+
+					if(isInt(ticklocation)) {
+						textElement.innerHTML = ticklocation
+					}
+					else {
+						ticklocation = ticklocation.toFixed(1)
+						textElement.innerHTML = ticklocation
+						if(ticklocation == 0) {
+							textElement.innerHTML = 0
+						}
+
+					}
+
+					textElement.setAttribute('x', graphToScaledX(ticklocation, gdata.xmin, gdata.xmax, aratio) - 1 + '%');
+					textElement.setAttribute('y',graphToScaledY(labelxlocationY, gdata.ymin, gdata.ymax, aratio) + 2 + gdata.xmajorgridlabelshift + '%');
+					textElement.setAttribute('id',name + '-xticklabel-' + m)
+					textElement.style.fontSize = gdata.fontSize
+					textElement.style.fontFamily = 'Calibri'
+					textElement.style.fill = gdata.ymajorgridlabelcolor
+					svgElement.appendChild(textElement);
+					
+					gdata.xmajorlabelsElements.push(textElement)
+					
+				}
+			}
+
+
+			gdata.xaxislabel = gdata.xaxislabel || 'x axis'
+			gdata.yaxislabel = gdata.yaxislabel || 'y axis'
+
+			if (gdata.xaxislabelvisibility == 'yes') {
+				var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+				textElement.innerHTML = gdata.xaxislabel 
+				textElement.setAttribute('x', graphToScaledX(gdata.xmax, gdata.xmin, gdata.xmax, aratio) + 2 + '%');
+				textElement.setAttribute('y',graphToScaledY(gdata.axislocationY, gdata.ymin, gdata.ymax, aratio) + 1 + '%');
+				textElement.setAttribute('id',name + '-xaxislabel')
+				textElement.style.fontSize = gdata.fontSize
+				textElement.style.fontFamily = 'Calibri'
+				
+				svgElement.appendChild(textElement);
+				gdata.xaxislabelElement = textElement
+				
+			}
+
+
+			if (gdata.yaxislabelvisibility == 'yes') {
+				var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+				textElement.innerHTML = gdata.yaxislabel 
+				textElement.setAttribute('x', graphToScaledX(gdata.axislocationX, gdata.xmin, gdata.xmax, aratio) + 0 + '%');
+				textElement.setAttribute('y',graphToScaledY(gdata.ymax, gdata.ymin, gdata.ymax, aratio) - 2 + '%');
+				textElement.setAttribute('id',name + '-yaxislabel')
+				textElement.style.fontSize = gdata.fontSize
+				textElement.style.fontFamily = 'Calibri'
+				
+				svgElement.appendChild(textElement);
+				gdata.yaxislabelElement = textElement
+				
+			}
+
+			gdata.lineData = {}
+			gdata.circleData = {}
+			gdata.pointData = {}
+			gdata.ellipseData = {}
+			gdata.rectData = {}
+			gdata.textData = {}
+
+			gdata.aspectratio = aratio
+
+
+
+			graphData[name] = gdata
+			return JSON.parse(JSON.stringify(gdata));
+		}
+
+
+		function addLine(graphname, linename, lineoptions) {
+			gdata = graphData[graphname]
+			lineoptions = lineoptions || {}
+
+			aratio = gdata.aspectratio
+
+			lineoptions.x1 = parseFloat(lineoptions.x1.toString() || 0)
+			lineoptions.y1 = parseFloat(lineoptions.y1.toString() || 0)
+			lineoptions.x2 = parseFloat(lineoptions.x2.toString() || 0.5)
+			lineoptions.y2 = parseFloat(lineoptions.y2.toString() || 0.5)
+			lineoptions.name = linename || uid
+
+			lineoptions.strokedasharray = lineoptions.strokedasharray || ""
+
+			// console.log((0).toString() || 0.5)
+
+			lineoptions.strokewidth = lineoptions.strokewidth || 1
+			lineoptions.linecolor = lineoptions.linecolor || 'hsla(190, 100%, 50%, 1)'
+
+			var lineElement = document.createElementNS("http://www.w3.org/2000/svg", 'line');
+			lineElement.setAttribute('x1', graphToScaledX(lineoptions.x1, gdata.xmin, gdata.xmax, aratio) + '%');
+			lineElement.setAttribute('y1', graphToScaledY(lineoptions.y1, gdata.ymin, gdata.ymax, aratio) + '%');
+			lineElement.setAttribute('x2', graphToScaledX(lineoptions.x2, gdata.xmin, gdata.xmax, aratio) + '%')
+			lineElement.setAttribute('y2', graphToScaledY(lineoptions.y2, gdata.ymin, gdata.ymax, aratio) + '%');
+			lineElement.setAttribute('stroke-dasharray', lineoptions.strokedasharray);
+			
+			lineElement.setAttribute('id', graphname + '-line-' + linename)
+			uid = uid + 1
+			lineElement.setAttribute('vector-effect','non-scaling-stroke');
+			lineElement.style.stroke = lineoptions.linecolor
+			lineElement.style.strokeWidth = lineoptions.strokewidth + '%';
+			gdata.svgElement.appendChild(lineElement);
+
+			graphData[graphname].lineData[linename] = [lineElement, lineoptions]
+			return [lineElement, lineoptions]
+		}
+
+
+		function updateLine(graphname, linename, linevalues) {
+
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+
+			lineoptions = gdata.lineData[linename][1]
+			lineElement = gdata.lineData[linename][0]
+			
+			if (linevalues.x1 != 0) {
+				lineoptions.x1 = linevalues.x1 || lineoptions.x1	
+			}
+			else {
+				lineoptions.x1 = linevalues.x1
+			}
+
+
+			if (linevalues.y1 != 0) {
+				lineoptions.y1 = linevalues.y1 || lineoptions.y1	
+			}
+			else {
+				lineoptions.y1 = linevalues.y1
+			}
+
+
+			if (linevalues.x2 != 0) {
+				lineoptions.x2 = linevalues.x2 || lineoptions.x2	
+			}
+			else {
+				lineoptions.x2 = linevalues.x2
+			}
+
+
+			if (linevalues.y2 != 0) {
+				lineoptions.y2 = linevalues.y2 || lineoptions.y2	
+			}
+			else {
+				lineoptions.y2 = linevalues.y2
+			}
+
+			lineElement.setAttribute('x1', graphToScaledX(lineoptions.x1, gdata.xmin, gdata.xmax, aratio) + '%');
+			lineElement.setAttribute('y1', graphToScaledY(lineoptions.y1, gdata.ymin, gdata.ymax, aratio) + '%');
+			lineElement.setAttribute('x2', graphToScaledX(lineoptions.x2, gdata.xmin, gdata.xmax, aratio) + '%')
+			lineElement.setAttribute('y2', graphToScaledY(lineoptions.y2, gdata.ymin, gdata.ymax, aratio) + '%');
+			
+			
+			graphData[graphname].lineData[linename] = [lineElement, lineoptions]
+		}
+
+
+		function distanceBTWgraphToSvg(p1, p2, xmin, xmax, ymin, ymax, aspectratio) {
+			pt1 = [graphToScaledX(p1[0], xmin, xmax, aspectratio), graphToScaledY(p1[1], ymin, ymax, aspectratio)]
+			pt2 = [graphToScaledX(p2[0], xmin, xmax, aspectratio), graphToScaledY(p2[1], ymin, ymax, aspectratio)]
+
+			return Math.pow(Math.pow(pt1[0] - pt2[0], 2) + Math.pow(pt1[1] - pt2[1], 2), 0.5)
+		}
+
+
+		function addCircle(graphname, circlename, circleoptions) {
+			gdata = graphData[graphname]
+			circleoptions = circleoptions || {}
+			aratio = gdata.aspectratio
+
+			circleoptions.x = circleoptions.x || 0.3
+			circleoptions.y = circleoptions.y || 0.3
+			circleoptions.radius = circleoptions.radius || 0.1
+			circleoptions.name = circlename || uid
+
+			circleoptions.stroke = circleoptions.stroke || 'hsla(190, 100%, 50%, 0.5)'
+			circleoptions.strokewidth = circleoptions.strokewidth || 0.1
+			
+
+			circleoptions.circlecolor = circleoptions.circlecolor || 'hsla(190, 100%, 50%, 1)'
+
+			rx = distanceBTWgraphToSvg([0,0],[circleoptions.radius, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			ry = distanceBTWgraphToSvg([0,0],[0, circleoptions.radius], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			
+			var circleElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
+			circleElement.setAttribute('cx', graphToScaledX(circleoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			circleElement.setAttribute('cy', graphToScaledY(circleoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			circleElement.setAttribute('rx', rx + '%')
+			circleElement.setAttribute('ry', ry + '%');
+			circleElement.setAttribute('id', graphname + '-circle-' + circlename)
+			uid = uid + 1
+			circleElement.setAttribute('vector-effect','non-scaling-stroke');
+			circleElement.style.fill = circleoptions.circlecolor
+			circleElement.style.strokeWidth = circleoptions.strokewidth + '%';
+			circleElement.style.stroke = circleoptions.stroke;
+			gdata.svgElement.appendChild(circleElement);
+
+			graphData[graphname].circleData[circlename] = [circleElement, circleoptions]
+		}
+
+		function addEllipse(graphname, ellipsename, ellipseoptions) {
+			gdata = graphData[graphname]
+
+			aratio = gdata.aspectratio
+
+			ellipseoptions = ellipseoptions || {}
+
+			ellipseoptions.x = parseFloat(ellipseoptions.x.toString() || 0)
+			ellipseoptions.y = parseFloat(ellipseoptions.y.toString() || 0)
+			ellipseoptions.rx = parseFloat(ellipseoptions.rx.toString() || 0.3)
+			ellipseoptions.ry = parseFloat(ellipseoptions.ry.toString() || 8)
+			ellipseoptions.name = ellipsename || uid
+
+			ellipseoptions.stroke = ellipseoptions.stroke || 'hsla(190, 100%, 50%, 0.5)'
+			ellipseoptions.strokewidth = ellipseoptions.strokewidth || 0.1
+			
+			ellipseoptions.ellipsecolor = ellipseoptions.ellipsecolor || 'hsla(190, 100%, 50%, 1)'
+
+			rx = distanceBTWgraphToSvg([0,0],[ellipseoptions.rx, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			ry = distanceBTWgraphToSvg([0,0],[0, ellipseoptions.ry], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			
+			var ellipseElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
+			ellipseElement.setAttribute('cx', graphToScaledX(ellipseoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			ellipseElement.setAttribute('cy', graphToScaledY(ellipseoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			ellipseElement.setAttribute('rx', rx + '%')
+			ellipseElement.setAttribute('ry', ry + '%');
+			ellipseElement.setAttribute('id', graphname + '-ellipse-' + ellipsename)
+			uid = uid + 1
+			ellipseElement.setAttribute('vector-effect','non-scaling-stroke');
+			ellipseElement.style.fill = ellipseoptions.ellipsecolor
+			ellipseElement.style.strokeWidth = ellipseoptions.strokewidth + '%';
+			ellipseElement.style.stroke = ellipseoptions.stroke;
+			gdata.svgElement.appendChild(ellipseElement);
+
+			graphData[graphname].ellipseData[ellipsename] = [ellipseElement, ellipseoptions]
+		}
+
+		function addText(graphname, textname, textoptions) {
+			gdata = graphData[graphname]
+			textoptions = textoptions || {}
+
+			aratio = gdata.aspectratio
+
+			textoptions.x = parseFloat(textoptions.x.toString() || 0)
+			textoptions.y = parseFloat(textoptions.y.toString() || 0)
+			textoptions.text = textoptions.text || ''
+			textoptions.name = textname || uid
+
+			textoptions.fontSize = textoptions.fontSize || 12
+			
+			textoptions.textcolor = textoptions.textcolor || 'hsla(190, 100%, 0%, 1)'
+			
+			var textElement = document.createElementNS("http://www.w3.org/2000/svg", 'text');
+			textElement.setAttribute('x', graphToScaledX(textoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			textElement.setAttribute('y', graphToScaledY(textoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			textElement.setAttribute('id', graphname + '-text-' + textname)
+			uid = uid + 1
+			textElement.setAttribute('vector-effect','non-scaling-stroke');
+			textElement.style.fill = textoptions.textcolor
+			textElement.innerHTML = textoptions.text
+			textElement.style.fontFamily = 'Calibri'
+			textElement.style.fontSize = textoptions.fontSize;
+			gdata.svgElement.appendChild(textElement);
+
+			graphData[graphname].textData[textname] = [textElement, textoptions]
+			return [textElement, textoptions]
+		}
+
+		function updateText(graphname, textname, updatetext) {
+			gdata = graphData[graphname]
+
+			aratio = gdata.aspectratio
+
+			textoptions = gdata.textData[textname][1]
+			textElement = gdata.textData[textname][0]
+
+			textoptions.text = updatetext.text || textoptions.text
+			textoptions.x = updatetext.x || textoptions.x
+			textoptions.y = updatetext.y || textoptions.y
+			textoptions.name = textname || uid
+
+			textElement.innerHTML = textoptions.text
+			textElement.setAttribute('x', graphToScaledX(textoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			textElement.setAttribute('y', graphToScaledY(textoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			
+			
+			graphData[graphname].textData[textname] = [textElement, textoptions]
+		}
+
+		function addRectangle(graphname, rectname, rectoptions) {
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+			rectoptions = rectoptions || {}
+
+			rectoptions.x = parseFloat(rectoptions.x.toString() || 0)
+			rectoptions.y = parseFloat(rectoptions.y.toString() || 0)
+			rectoptions.w = parseFloat(rectoptions.w.toString() || 1)
+			rectoptions.h = parseFloat(rectoptions.h.toString() || 1)
+			rectoptions.name = rectname || uid
+
+			rectoptions.stroke = rectoptions.stroke || 'hsla(190, 100%, 50%, 0.5)'
+			rectoptions.strokewidth = rectoptions.strokewidth || 0.1
+			
+			rectoptions.rectcolor = rectoptions.rectcolor || 'hsla(190, 100%, 50%, 1)'
+
+			rx = distanceBTWgraphToSvg([0,0],[rectoptions.w, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			ry = distanceBTWgraphToSvg([0,0],[0, rectoptions.h], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			
+			var rectElement = document.createElementNS("http://www.w3.org/2000/svg", 'rect');
+			rectElement.setAttribute('x', graphToScaledX(rectoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			rectElement.setAttribute('y', graphToScaledY(rectoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			rectElement.setAttribute('width', rx + '%')
+			rectElement.setAttribute('height', ry + '%');
+			rectElement.setAttribute('id', graphname + '-rect-' + rectname)
+			uid = uid + 1
+			rectElement.setAttribute('vector-effect','non-scaling-stroke');
+			rectElement.style.fill = rectoptions.rectcolor
+			rectElement.style.strokeWidth = rectoptions.strokewidth + '%';
+			rectElement.style.stroke = rectoptions.stroke;
+			gdata.svgElement.appendChild(rectElement);
+
+			graphData[graphname].rectData[rectname] = [rectElement, rectoptions]
+		}
+
+
+		function updateRectangle(graphname, rectname, rectvalueupdate) {
+			gdata = graphData[graphname]
+			rectoptions = gdata.rectData[rectname][1]
+			rectElement = gdata.rectData[rectname][0]
+			aratio = gdata.aspectratio
+
+			if (rectvalueupdate.x != 0) {
+				rectoptions.x = rectvalueupdate.x || rectoptions.x	
+			}
+			else {
+				rectoptions.x = rectvalueupdate.x
+			}
+
+
+			if (rectvalueupdate.y != 0) {
+				rectoptions.y = rectvalueupdate.y || rectoptions.y	
+			}
+			else {
+				rectoptions.y = rectvalueupdate.y
+			}
+
+
+			if (rectvalueupdate.w != 0) {
+				rectoptions.w = rectvalueupdate.w || rectoptions.w	
+			}
+			else {
+				rectoptions.w = rectvalueupdate.w
+			}
+
+
+			if (rectvalueupdate.h != 0) {
+				rectoptions.h = rectvalueupdate.h || rectoptions.h	
+			}
+			else {
+				rectoptions.h = rectvalueupdate.h
+			}
+			
+			rectoptions.stroke = rectvalueupdate.stroke || rectoptions.stroke
+			rectoptions.strokewidth = rectvalueupdate.strokewidth || rectoptions.strokewidth
+			
+			rectoptions.rectcolor = rectvalueupdate.rectcolor || rectoptions.rectcolor
+
+			rx = distanceBTWgraphToSvg([0,0],[rectoptions.w, 0], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			ry = distanceBTWgraphToSvg([0,0],[0, rectoptions.h], gdata.xmin, gdata.xmax, gdata.ymin, gdata.ymax, aratio)
+			
+			rectElement.setAttribute('x', graphToScaledX(rectoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			rectElement.setAttribute('y', graphToScaledY(rectoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			rectElement.setAttribute('width', rx + '%')
+			rectElement.setAttribute('height', ry + '%');
+			rectElement.style.fill = rectoptions.rectcolor
+			rectElement.style.strokeWidth = rectoptions.strokewidth + '%';
+			rectElement.style.stroke = rectoptions.stroke;
+			
+			graphData[graphname].rectData[rectname] = [rectElement, rectoptions]
+		}
+
+
+
+
+		function addPoint(graphname, pointname, pointoptions) {
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+
+			pointoptions = pointoptions || {}
+
+			pointoptions.x = pointoptions.x || 0.3
+			pointoptions.y = pointoptions.y || 0.3
+			pointoptions.pointsize = pointoptions.pointsize || 0.7
+			pointoptions.name = pointname || uid
+
+			pointoptions.pointcolor = pointoptions.pointcolor || 'hsla(190, 100%, 50%, 1)'
+			
+			var pointElement = document.createElementNS("http://www.w3.org/2000/svg", 'ellipse');
+			pointElement.setAttribute('cx', graphToScaledX(pointoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			pointElement.setAttribute('cy', graphToScaledY(pointoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+			pointElement.setAttribute('rx', pointoptions.pointsize + '%')
+			pointElement.setAttribute('ry', pointoptions.pointsize + '%');
+			pointElement.setAttribute('id', graphname + '-point-' + pointname)
+			uid = uid + 1
+			pointElement.setAttribute('vector-effect','non-scaling-stroke');
+			pointElement.style.fill = pointoptions.pointcolor
+			gdata.svgElement.appendChild(pointElement);
+
+			graphData[graphname].pointData[pointname] = [pointElement, pointoptions]
+			return [pointElement, pointoptions]
+		}
+
+		function updatePoint(graphname, pointname, xvalue, yvalue) {
+			pointElement = document.getElementById(graphname + '-point-' + pointname)
+			
+			gdata = graphData[graphname]
+			aratio = gdata.aspectratio
+
+			pointoptions = graphData[graphname].pointData[pointname][1]
+
+			pointoptions.x = xvalue
+			pointoptions.y = yvalue
+			
+			
+			pointElement.setAttribute('cx', graphToScaledX(pointoptions.x, gdata.xmin, gdata.xmax, aratio) + '%');
+			pointElement.setAttribute('cy', graphToScaledY(pointoptions.y, gdata.ymin, gdata.ymax, aratio) + '%');
+
+			graphData[graphname].pointData[pointname] = [pointElement, pointoptions]
+		}
+
+		function removePoint(graphname, pointname) {
+			pointElement = document.getElementById(graphname + '-point-' + pointname)
+			
+			pointElement.outerHTML = "";
+			delete graphData[graphname].pointData[pointname]
+		}
+
+
+
+		function getdistancesattimes(location1, location2, fromtime, totime, timeinterval) {
+			if ((location1.length) == (location2.length)) {
+				distanceAndTimes = []
+				duration = totime - fromtime
+				tm = timeinterval/duration
+				k = 0
+				
+				tester = 0
+
+				while(tm < 1) {
+
+					tester = tester + 1
+					if (tester > 10000) {
+						// console.log('breaking',location1, location2, fromtime, totime, timeinterval)
+						break
+					}
+					tm = (timeinterval*k)/duration
+					locationvec = []
+					for (dimension = 0; dimension < location1.length; dimension++) {
+						locationD = (location2[dimension]*tm) + (1 - tm)*location1[dimension]
+						locationvec.push(locationD)
+					}
+					distanceAndTimes.push([locationvec, fromtime + (timeinterval*k)])
+					locationtimemap[findnearesttime(fromtime + (timeinterval*k), timestep)] = locationvec
+					// print(location, fromtime + (timeinterval*k))
+					k = k + 1
+				}
+
+				locationtimemap[findnearesttime(totime, timestep)] = location2
+				// return distanceAndTimes
+			}
+			else {
+				console.log('The dimensions of end points not the same.')
+			}
+		}
+
+
+		function mulA(vec) {
+			msum = (m1 + m2)
+			a11 = (m1 - m2)/msum
+			a12 = (2*m2)/msum
+			a21 = (2*m1)/msum
+			a22 = (m2 - m1)/msum
+
+			v1 = a11*vec[0] + a12*vec[1]
+			v2 = a21*vec[0] + a22*vec[1]
+
+			return [v1, v2]
+		}
+
+
+		function mulW(vec){
+			v1 = (-1)*vec[0]
+			v2 = vec[1]
+			return [v1, v2]
+		}
+
+
+		function getCollision(distvec, velvec) {
+			collisionpoint = distvec[1] + ((distvec[0] + (2*boxwidth) - distvec[1])*velvec[1]/(velvec[1] - velvec[0]))
+			return [collisionpoint - (2*boxwidth), collisionpoint]
+		}
+
+
+		function getCollisionWall(distvec, velvec) {
+			v2distance = distvec[1] + ((sW - distvec[0] + boxwidth)*velvec[1]/(velvec[0]))
+			return [sW + boxwidth, v2distance]
+		}
+
+		function getCollisionWallTime(distvec, velvec,currtime) {
+			// console.log(1, currtime)
+			return currtime + ((sW - distvec[0] + boxwidth)/(velvec[0]))
+		}
+
+		function getCollisionTime(distvec, velvec, currtime) {
+			// console.log(currtime)
+			return currtime + ((distvec[0] - distvec[1] + (2*boxwidth))/(velvec[1] - velvec[0]))
+		}
+
+		function checkspeeds(speed1, speed2) {
+			ret = true
+			if (speed1 >= 0 && speed2 >=0) {
+				if(Math.abs(speed2) >= Math.abs(speed1)) {
+					ret = false
+				}
+			}
+
+			return ret
+		}
+
+		function massinputfunction(event) {
+			if (isNaN(parseInt(event.target.value)) || parseInt(event.target.value) == 0) { 
+			}
+			else {
+				m2 = parseInt(event.target.value)
+				// console.log(m2)
+				allInitialContent()
+			}
+
+		}
+
+		function initialvelocity2inputfunction(event) {
+			if (isNaN(parseFloat(event.target.value))) { 
+			}
+			else {
+				v2value = parseFloat(document.getElementById('initialvelocity2input').value)
+				v1value = parseFloat(document.getElementById('initialvelocity1input').value)
+				initvector = [v1value, v2value]
+				// console.log(m2)
+				allInitialContent()
+			}
+
+		}
+
+		function initialvelocity1inputfunction(event) {
+			if (isNaN(parseFloat(event.target.value))) { 
+			}
+			else {
+				v2value = parseFloat(document.getElementById('initialvelocity2input').value)
+				v1value = parseFloat(document.getElementById('initialvelocity1input').value)
+				initvector = [v1value, v2value]
+				// console.log(m2)
+				allInitialContent()
+			}
+
+		}
+
+		document.getElementById('initialvelocity2input').addEventListener('input',initialvelocity2inputfunction)
+		document.getElementById('initialvelocity1input').addEventListener('input',initialvelocity1inputfunction)
+		document.getElementById('mass2input').addEventListener('input', massinputfunction)
+
+		// function changeIV2(event) {
+		// 	currvalue = event.target.value
+		// 	var locker = lockScroll()
+		// 	console.log(currvalue, event.deltaX, event.deltaY)
+		// }
+
+		// function openIV2Scroller(event) {
+		// 	event.target.addEventListener('wheel', changeIV2)
+		// }
+
+
+		// function closeIV2Scroller(event) {
+		// 	event.target.removeEventListener('wheel', changeIV2)
+		// }
+
+
+		// document.getElementById('initialvelocity2input').addEventListener('mouseover', openIV2Scroller)
+		// document.getElementById('initialvelocity2input').addEventListener('mouseout', closeIV2Scroller)
+
+		function lockScroll() {
+			var lockX = window.scrollX;
+			var lockY = window.scrollY;
+
+			function lockIt() {
+				window.scrollTo(lockX,lockY);
+				return false;
+			}
+
+			window.addEventListener("scroll",lockIt,false)
+
+			return {
+				stop: function(){
+					window.removeEventListener("scroll",lockIt,false)
+				}
+			}
+		}
+
+		function analyzecondition() {
+			// m1 = 1
+			// m2 = 100
+			// initvector = [-3 ,-1]
+
+			sW = 0
+			initdistancevector = [5, 10]
+
+			time = 0
+
+			currentvector = initvector.slice()
+			currentdistancevector = initdistancevector.slice()
+
+			collisioncount = 0
+
+			velocityvalues = []
+			distancevalues = []
+			timevalues = []
+
+			velocityvalues.push(currentvector)
+			distancevalues.push(currentdistancevector)
+			timevalues.push(time)
+
+			locationtimemap[time] = currentdistancevector
+
+			blockcollisiontime = (currentdistancevector[1] - currentdistancevector[0] - (2*boxwidth))/(currentvector[0] - currentvector[1])
+			block1wallcollisiontime = (boxwidth + sW - currentdistancevector[0])/(currentvector[0])
+
+			if (blockcollisiontime > 0 && block1wallcollisiontime > 0) {
+				if (blockcollisiontime > block1wallcollisiontime) {
+					mtype = 'W'
+				}
+				else {
+					mtype = 'A'
+				}
+			}
+			else if (blockcollisiontime < 0 && block1wallcollisiontime > 0) {
+				mtype = 'W'	
+			}
+			else if (blockcollisiontime > 0 && block1wallcollisiontime < 0) {
+				mtype = 'A'	
+			}
+			else if (blockcollisiontime < 0 && block1wallcollisiontime < 0) {
+				console.log('both are moving away')	
+			}
+			
+
+			// throw new Error("Something went badly wrong!");
+			// mtype = 'A'
+
+			startingcollisiontype = mtype
+
+			timestep = 0.01
+
+
+			// console.log(currentvector)
+
+
+			while(checkspeeds(currentvector[0], currentvector[1])) {
+				if (mtype == 'A') {
+					lastcollisiondistances = currentdistancevector
+					lasttime = time
+					time = getCollisionTime(currentdistancevector, currentvector, time)
+					ndvec = getCollision(currentdistancevector, currentvector)
+
+					currentdistancevector = ndvec.slice()
+
+					// console.log(lastcollisiondistances, currentdistancevector, lasttime, time, timestep)
+
+					distancestimes = getdistancesattimes(lastcollisiondistances, currentdistancevector, lasttime, time, timestep)
+
+					nvec = mulA(currentvector)
+					currentvector = nvec.slice()
+
+
+					// console.log(currentvector)
+
+					collisioncount = collisioncount + 1
+					mtype = 'W'
+				}
+
+				else if (mtype == 'W') {
+					lastcollisiondistances = currentdistancevector
+					lasttime = time
+
+					time = getCollisionWallTime(currentdistancevector, currentvector, time)
+					ndvec = getCollisionWall(currentdistancevector, currentvector)
+
+					currentdistancevector = ndvec.slice()
+
+					distancestimes = getdistancesattimes(lastcollisiondistances, currentdistancevector, lasttime, time, timestep)
+
+					nvec = mulW(currentvector)
+					currentvector = nvec.slice()
+
+
+					// console.log(currentvector)
+
+					collisioncount = collisioncount + 1
+					mtype = 'A'
+				}
+
+				// console.log(currentdistancevector)
+				
+				// locationsAndTimes.append(distancestimes)
+				velocityvalues.push(currentvector)
+				distancevalues.push(currentdistancevector)
+				timevalues.push(time)
+				locationtimemap[time] = currentdistancevector
+			}
+
+			uptotime = time + 100
+			finaldist = [currentdistancevector[0] + currentvector[0]*uptotime, currentdistancevector[1] + currentvector[1]*uptotime]
+
+			distancestimes = getdistancesattimes(currentdistancevector, finaldist, time, uptotime, timestep)
+
+
+		}
+
+		
+
+		// console.log(locationtimemap)
+
+		function findnearesttime(value, timestepvalue) {
+			expstring = timestep.toExponential()
+			// order = parseFloat(Math.pow(10 , expstring.slice(expstring.indexOf('e') + 1)))
+			// // console.log(expstring)
+			// if (expstring.indexOf('.') != -1) {
+			// 	mvalue = parseFloat(expstring.slice(0, expstring.indexOf('.'))*majorgridorder)	
+			// }
+			// else {
+			// 	mvalue = parseFloat(expstring.slice(0, expstring.indexOf('e'))*majorgridorder)
+
+			// }
+
+			order = (expstring.slice(expstring.indexOf('e') + 1)*(-1))
+
+
+			// console.log(value.toFixed(order))
+			// order = parseFloat(Math.pow(10 , expstring.slice(expstring.indexOf('e') + 1)))
+			
+			// timestep.toExponential()
+			return value.toFixed(order)
+		}
+
+
+		function checkifcollision(timeval, tstep) {
+			collisionTimes = []
+			while ((timeval + tstep) > timevalues[collisiontimescounter]) {
+				collisionTimes.push(timevalues[collisiontimescounter])
+				collisiontimescounter = collisiontimescounter + 1
+			}
+			return collisionTimes
+		}
+
+		m2 = 100
+		m1 = 1
+
+		graphData = {}
+		uid = 0
+		boxwidth = 1
+		locationtimemap = {}
+
+		collisiontimescounter = 0
+
+		linesofVgraph = []
+		pointsofVgraph = []
+		linesofTVgraph = []
+		pointsofTVgraph = []
+		
+		collisionFlag = false
+		deleteflag = true
+		currenttime = 0
+		t = 0
+
+		initvector = [0,-1]
+
+		mtype = 'A'
+
+		timestep = 0.01
+		velocityvalues = []
+		distancevalues = []
+		timevalues = []
+		initdistancevector = [5, 10]
+
+		darkmode = false
+
+		if (darkmode) {
+			darkMode()
+		}
+
+		
+
+
+
+		function allInitialContent() {
+			if (typeof loopinterval != 'undefined') {
+				clearInterval(loopinterval);
+			}
+			document.getElementById("minisimulationbar").innerHTML = ""
+			document.getElementById("mainsimulationH").innerHTML = ""
+			// document.getElementById("mainsimulationcontrols").innerHTML = ""
+			document.getElementById("velocityphasespacegraphbox").innerHTML = ""
+			document.getElementById("positionphasespacegraphbox").innerHTML = ""
+			document.getElementById("transformedvelocityphasespacegraphbox").innerHTML = ""
+			document.getElementById("transformedpositionphasespacegraphbox").innerHTML = ""
+			document.getElementById("billiardsgraphbox").innerHTML = ""
+			document.getElementById("worldlinegraphbox").innerHTML = ""
+
+
+
+			graphData = {}
+			
+			uid = 0
+
+			boxwidth = 1
+
+			mainsimulation = document.getElementById('mainsimulationH')
+			graphoptions = {}
+			graphoptions.xmax = 30
+			graphoptions.xmin = 1
+			graphoptions.ymax = 1
+			graphoptions.ymin = 0.1
+			graphoptions.axislocationX = 0
+			graphoptions.axislocationY = 0.1
+
+			graphoptions.xaxislabelvisibility = 'no'
+			graphoptions.yaxislabelvisibility = 'no'
+
+			graphoptions.xaxisvisibility = 'no'
+			graphoptions.yaxisvisibility = 'no'
+			graphoptions.xmajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlabelvisibility = 'no'
+			
+			addGraph(mainsimulation, 'mainsimulation', graphoptions)
+
+			options = {}
+			options.x1 = 1
+			options.y1 = 0.2
+			options.x2 = 1
+			options.y2 = 1
+			options.linecolor = 'hsla(210, 100%, 50%, 0.3)'
+			if (darkmode) {
+				options.linecolor = 'hsla(210, 100%, 70%, 1)'
+			}
+			options.strokewidth = 1
+			options.strokedasharray = "5,5"
+			addLine('mainsimulation', 'walllimit' , options)
+
+			options = {}
+			options.x1 = 0
+			options.y1 = 0.2
+			options.x2 = 0
+			options.y2 = 1
+			options.linecolor = 'hsla(0, 100%, 0%, 1)'
+			if (darkmode) {
+				options.linecolor = 'hsla(0, 100%, 100%, 1)'
+			}
+			addLine('mainsimulation', 'wall' , options)
+
+			options = {}
+			options.x1 = 0
+			options.y1 = 0.2
+			options.x2 = 30
+			options.y2 = 0.2
+			options.linecolor = 'hsla(0, 100%, 0%, 1)'
+			if (darkmode) {
+				options.linecolor = 'hsla(0, 100%, 100%, 1)'
+			}
+			addLine('mainsimulation', 'ramp' , options)
+
+			options = {}
+			options.x = 4
+			options.y = 0.4
+			options.w = 2
+			options.h = 0.2
+			addRectangle('mainsimulation', 'mass1rect' , options)
+
+			options = {}
+			options.x = 16
+			options.y = 0.4 + (Math.log(m2)*0.01)
+			options.w = 2
+			options.h = 0.2 + (Math.log(m2)*0.01)
+			options.rectcolor = 'hsla(260, 100%, 50%, 1)'
+			addRectangle('mainsimulation', 'mass2rect' , options)
+			// addPoint('mainsimulation' , 'velocityPhaseSpacePoint')
+
+			options = {}
+			options.x = 20
+			options.y = 0.7
+			options.fontSize = 5
+			if (darkmode) {
+				options.textcolor = 'hsla(0, 100%, 100%, 1)'
+			}
+			addText('mainsimulation', 'timetext' , options)
+
+			options = {}
+			options.x = 3
+			options.y = 0.3
+			options.fontSize = 5
+			options.text = m1
+			options.textcolor = 'hsla(0,100%, 100%, 1)'
+			mass1textinfo = addText('mainsimulation', 'mass1textinfo' , options)
+			mass1textinfo[0].setAttribute('dominant-baseline', 'middle')
+			mass1textinfo[0].setAttribute('text-anchor', 'middle')
+			mass1textinfo[0].style.fontWeight = 'bold'
+			// mass1textinfo[0].style.transform = 'rotate(90deg)'
+
+
+
+			options = {}
+			options.x = 3
+			options.y = 0.3
+			options.fontSize = 5
+			options.text = m2
+			options.textcolor = 'hsla(0,100%, 100%, 1)'
+			mass2textinfo = addText('mainsimulation', 'mass2textinfo' , options)
+			mass2textinfo[0].setAttribute('dominant-baseline', 'middle')
+			mass2textinfo[0].setAttribute('text-anchor', 'middle')
+			mass2textinfo[0].style.fontWeight = 'bold'
+
+			options = {}
+			options.x = 3
+			options.y = 0.4 + (Math.log(m1)*0.01) + 0.05
+			options.fontSize = 5
+			options.text = 'Block 1'
+			options.textcolor = 'hsla(0,100%, 0%, 1)'
+			if (darkmode) {
+				options.textcolor = 'hsla(0, 100%, 100%, 1)'
+			}
+			mass1textinfo = addText('mainsimulation', 'block1textinfo' , options)
+			mass1textinfo[0].setAttribute('dominant-baseline', 'middle')
+			mass1textinfo[0].setAttribute('text-anchor', 'middle')
+			mass1textinfo[0].style.fontWeight = 'bold'
+			
+			options = {}
+			options.x = 3
+			options.y = 0.4 + (Math.log(m2)*0.01) + 0.05
+			options.fontSize = 5
+			options.text = 'Block 2'
+			options.textcolor = 'hsla(0,100%, 0%, 1)'
+			if (darkmode) {
+				options.textcolor = 'hsla(0, 100%, 100%, 1)'
+			}
+			mass1textinfo = addText('mainsimulation', 'block2textinfo' , options)
+			mass1textinfo[0].setAttribute('dominant-baseline', 'middle')
+			mass1textinfo[0].setAttribute('text-anchor', 'middle')
+			mass1textinfo[0].style.fontWeight = 'bold'
+			
+
+			// options = {}
+			// options.x = 20
+			// options.y = 0.7
+			// options.fontSize = 5
+			// addText('mainsimulation', 'x1text' , options)
+
+
+			options = {}
+			options.x = 20
+			options.y = 0.8
+			options.fontSize = 5
+			options.text = 'Collisions : 0'
+			if (darkmode) {
+				options.textcolor = 'hsla(0, 100%, 100%, 1)'
+			}
+			addText('mainsimulation', 'collisiontext' , options)
+
+			options = {}
+			options.x = 4
+			options.y = 0.8
+			options.fontSize = 5
+			options.text = 'Velocity 1 : ' + initvector[0]
+			options.textcolor = 'hsla(190, 100%, 50%, 1)'
+			if (darkmode) {
+				options.textcolor = 'hsla(190, 100%, 70%, 1)'
+			}
+			addText('mainsimulation', 'velocity1text' , options)
+
+			options = {}
+			options.x = 4
+			options.y = 0.7
+			options.fontSize = 5
+			options.text = 'Velocity 2 : ' + initvector[1]
+			options.textcolor = 'hsla(260, 100%, 50%, 1)'
+			if (darkmode) {
+				options.textcolor = 'hsla(260, 100%, 70%, 1)'
+			}
+			addText('mainsimulation', 'velocity2text' , options)
+
+
+			options = {}
+			options.x = -1.5
+			options.y = 0.7
+			options.fontSize = 5
+			options.text = 'Wall'
+			if (darkmode) {
+				options.textcolor = 'hsla(0, 100%, 100%, 1)'
+			}
+			addText('mainsimulation', 'walltext' , options)
+
+
+
+			minisimulationbar = document.getElementById('minisimulationbar')
+			graphoptions = {}
+			graphoptions.xmax = 30
+			graphoptions.xmin = 1
+			graphoptions.ymax = 0.4
+			graphoptions.ymin = 0.1
+			graphoptions.axislocationX = 0
+			graphoptions.axislocationY = 0.1
+
+			graphoptions.xaxislabelvisibility = 'no'
+			graphoptions.yaxislabelvisibility = 'no'
+
+			graphoptions.xaxisvisibility = 'no'
+			graphoptions.yaxisvisibility = 'no'
+			graphoptions.xmajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlabelvisibility = 'no'
+			graphoptions.xmajorgridlabelvisibility = 'no'
+			
+			addGraph(minisimulationbar, 'minisimulationbar', graphoptions)
+
+			// options = {}
+			// options.x = 24
+			// options.y = 0.25
+			// options.fontSize = 40
+			// options.text = 'prajwalsouza.github.io'
+			// options.textcolor = 'hsla(210,100%, 50%, 1)'
+			// textwebsite = addText('minisimulationbar', 'websiteinfo' , options)
+			// textwebsite[0].setAttribute('dominant-baseline', 'middle')
+			// textwebsite[0].setAttribute('text-anchor', 'middle')
+			// textwebsite[0].style.fontWeight = 'bold'
+			// textwebsite[0].style.cursor = 'pointer'
+			// textwebsite[0].setAttribute('onclick',"window.open('https://prajwalsouza.github.io')")
+			// // textwebsite[0].outerHTML = '<a href="https://www.youtube.com/watch?v=HEfHFsfGXjs" target="_blank">' + textwebsite[0].innerHTML + '</a>'
+
+			// options = {}
+			// options.x = 15
+			// options.y = 0.25
+			// options.fontSize = 60
+			// options.text = 'Counting π'
+			// options.textcolor = 'hsla(0,100%, 0%, 1)'
+			// textwebsite = addText('minisimulationbar', 'titleinfo' , options)
+			// textwebsite[0].setAttribute('dominant-baseline', 'middle')
+			// textwebsite[0].setAttribute('text-anchor', 'middle')
+			// textwebsite[0].style.fontWeight = 'bold'
+			// textwebsite[0].style.fontFamily = 'McLaren'
+			// textwebsite[0].style.cursor = 'pointer'
+			// textwebsite[0].setAttribute('onclick',"window.open('https://www.youtube.com/watch?v=HEfHFsfGXjs')")
+			
+
+
+			// options = {}
+			// options.x1 = 1
+			// options.y1 = 0.2
+			// options.x2 = 1
+			// options.y2 = 1
+			// options.linecolor = 'hsla(210, 100%, 50%, 0.3)'
+			// options.strokewidth = 1
+			// options.strokedasharray = "5,5"
+			// addLine('minisimulationbar', 'walllimitmini' , options)
+
+			options = {}
+			options.x1 = 0
+			options.y1 = 0.2
+			options.x2 = 0
+			options.y2 = 1
+			options.linecolor = 'hsla(0, 100%, 0%, 0.1)'
+			if (darkmode) {
+				options.linecolor = 'hsla(0, 100%, 100%, 0.5)'
+			}
+			addLine('minisimulationbar', 'wallmini' , options)
+
+			// options = {}
+			// options.x1 = 0
+			// options.y1 = 0.2
+			// options.x2 = 30
+			// options.y2 = 0.2
+			// options.linecolor = 'hsla(0, 100%, 0%, 1)'
+			// addLine('minisimulationbar', 'rampmini' , options)
+
+			options = {}
+			options.x = 4
+			options.y = 0.4
+			options.w = 2
+			options.h = 0.2
+			options.rectcolor = 'hsla(190, 100%, 50%, 0.1)'
+			if (darkmode) {
+				options.rectcolor = 'hsla(190, 100%, 50%, 0.5)'
+			}
+			addRectangle('minisimulationbar', 'mass1rectmini' , options)
+
+			options = {}
+			options.x = 16
+			options.y = 0.4
+			options.w = 2
+			options.h = 0.2
+			options.rectcolor = 'hsla(260, 100%, 50%, 0.1)'
+			if (darkmode) {
+				options.rectcolor = 'hsla(260, 100%, 50%, 0.5)'
+			}
+			addRectangle('minisimulationbar', 'mass2rectmini' , options)
+
+
+
+
+
+
+
+			
+			
+
+			positionphasespacegraphholder = document.getElementById('positionphasespacegraphholder')
+			positionphasespacegraphbox = document.getElementById('positionphasespacegraphbox')
+
+			ppholderaratio = positionphasespacegraphholder.offsetWidth/positionphasespacegraphholder.offsetHeight
+			
+
+			document.getElementById('positionphasespacegraphbox').style.width = (100/ppholderaratio) + '%'
+
+			thepercent = (100/ppholderaratio)
+
+			// tppholderaratio = positionphasespacegraphholder.offsetWidth/positionphasespacegraphholder.offsetHeight
+
+			document.getElementById('positionphasespacegraphspacer').style.width = (100 - thepercent)/2 + '%'
+
+
+
+
+			graphoptions = {}
+			graphoptions.xmax = 10
+			graphoptions.xmin = -1
+			graphoptions.ymax = 10
+			graphoptions.ymin = -1
+			graphoptions.axislocationX = 0
+			graphoptions.axislocationY = 0
+
+			graphoptions.xaxislabelvisibility = 'no'
+			graphoptions.yaxislabelvisibility = 'no'
+
+			graphoptions.xaxisvisibility = 'yes'
+			graphoptions.yaxisvisibility = 'yes'
+			graphoptions.xmajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlabelvisibility = 'yes'
+
+
+			graphoptions.xmajorgridlabelshift = 4
+			graphoptions.ymajorgridlabelshift = -8
+
+			graphoptions.fontSize = 4.5
+
+			graphoptions.gridlinenumber = 2.9
+			graphoptions.xlabelexclusionsstart = 1
+			graphoptions.ylabelexclusionsstart = 1
+			addGraph(positionphasespacegraphbox , 'positionphasespacegraph', graphoptions)
+
+			options = {}
+			options.x = 16
+			options.y = 0.4
+			options.pointcolor = 'hsla(40, 100%, 50%, 1)'
+			options.pointsize = 1
+			addPoint('positionphasespacegraph', 'positionPhaseSpacePoint' , options)
+			
+			options = {}
+			options.x = 16
+			options.y = 0.4
+			options.pointcolor = 'hsla(190, 100%, 50%, 1)'
+			if (darkmode) {
+				options.pointcolor = 'hsla(190, 100%, 70%, 1)'
+			}
+			addPoint('positionphasespacegraph', 'positionPhaseSpacePoint2' , options)
+
+			options = {}
+			options.x = 16
+			options.y = 0.4
+			options.pointcolor = 'hsla(260, 100%, 50%, 1)'
+			if (darkmode) {
+				options.pointcolor = 'hsla(260, 100%, 70%, 1)'
+			}
+			addPoint('positionphasespacegraph', 'positionPhaseSpacePoint1' , options)
+			
+
+			options = {}
+			options.x1 = 0
+			options.y1 = 0
+			options.x2 = 10
+			options.y2 = 10
+			options.linecolor = 'hsla(0, 100%, 0%, 0.5)'
+			if (darkmode) {
+				options.linecolor = 'hsla(0, 100%, 100%, 0.7)'
+			}
+			options.strokedasharray = "5,5"
+			addLine('positionphasespacegraph', 'positionPhaseSpaceLinex=y' , options)
+
+			options = {}
+			options.x1 = 2
+			options.y1 = 0
+			options.x2 = 10
+			options.y2 = 8
+			options.linecolor = 'hsla(300, 100%, 50%, 0.5)'
+			if (darkmode) {
+				options.linecolor = 'hsla(300, 100%, 70%, 0.7)'
+			}
+			addLine('positionphasespacegraph', 'positionPhaseSpaceLinex=yshift' , options)
+
+			options = {}
+			options.x1 = 0
+			options.y1 = 1
+			options.x2 = 10
+			options.y2 = 1
+			options.linecolor = 'hsla(210, 100%, 50%, 0.5)'
+			if (darkmode) {
+				options.linecolor = 'hsla(210, 100%, 70%, 0.7)'
+			}
+			addLine('positionphasespacegraph', 'positionPhaseSpaceLinex=yshiftw' , options)
+
+
+			options = {}
+			options.x = 10.3
+			options.y = 0
+			options.fontSize = 4
+			options.text = 'x2'
+			options.textcolor = 'hsla(260, 100%, 50%, 1)'
+			if (darkmode) {
+				options.textcolor = 'hsla(260, 100%, 70%, 1)'
+			}
+			addText('positionphasespacegraph', 'positionphasespacegraphAxisX' , options)
+
+			options = {}
+			options.x = 0
+			options.y = 10.3
+			options.fontSize = 4
+			options.text = 'x1'
+			options.textcolor = 'hsla(190, 100%, 50%, 1)'
+			if (darkmode) {
+				options.textcolor = 'hsla(190, 100%, 70%, 1)'
+			}
+			addText('positionphasespacegraph', 'positionphasespacegraphAxisY' , options)
+
+			
+			locationtimemap = {}
+
+			collisiontimescounter = 0
+
+			timestep = 0.01
+			analyzecondition()
+
+
+			transformedpositionphasespacegraphholder = document.getElementById('transformedpositionphasespacegraphholder')
+			transformedpositionphasespacegraphbox = document.getElementById('transformedpositionphasespacegraphbox')
+
+
+			ppholderaratio = transformedpositionphasespacegraphholder.offsetWidth/transformedpositionphasespacegraphholder.offsetHeight
+			// document.getElementById('transformedpositionphasespacegraphbox').style.width = (100/ppholderaratio) + '%'
+
+			graphoptions = {}
+			graphoptions.xmax = (10*Math.sqrt(m2))
+			graphoptions.xmin = (-1)
+			graphoptions.ymax = (10*Math.sqrt(m2))/ppholderaratio
+			graphoptions.ymin = (-1)
+			graphoptions.axislocationX = 0
+			graphoptions.axislocationY = 0
+
+			graphoptions.xaxislabelvisibility = 'no'
+			graphoptions.yaxislabelvisibility = 'no'
+
+			graphoptions.xaxisvisibility = 'yes'
+			graphoptions.yaxisvisibility = 'yes'
+			graphoptions.xmajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlabelvisibility = 'yes'
+
+
+			graphoptions.xmajorgridlabelshift = 4
+			graphoptions.ymajorgridlabelshift = -8
+
+			graphoptions.fontSize = 4.5
+
+			graphoptions.gridlinenumber = 2.9
+			graphoptions.xlabelexclusionsstart = 1
+			graphoptions.ylabelexclusionsstart = 1
+			addGraph(transformedpositionphasespacegraphbox , 'transformedpositionphasespacegraph', graphoptions)
+
+			options = {}
+			options.x = 16
+			options.y = 0.4
+			options.pointcolor = 'hsla(40, 100%, 50%, 1)'
+			options.pointsize = 1
+			addPoint('transformedpositionphasespacegraph', 'transformedpositionPhaseSpacePoint' , options)
+			
+			options = {}
+			options.x = 16
+			options.y = 0.4
+			options.pointcolor = 'hsla(190, 100%, 50%, 1)'
+			if (darkmode) {
+				options.pointcolor = 'hsla(190, 100%, 70%, 1)'
+			}
+			addPoint('transformedpositionphasespacegraph', 'transformedpositionPhaseSpacePoint2' , options)
+
+			options = {}
+			options.x = 16
+			options.y = 0.4
+			options.pointcolor = 'hsla(260, 100%, 50%, 1)'
+			if (darkmode) {
+				options.pointcolor = 'hsla(260, 100%, 70%, 1)'
+			}
+			addPoint('transformedpositionphasespacegraph', 'transformedpositionPhaseSpacePoint1' , options)
+			
+
+			options = {}
+			options.x1 = Math.sqrt(m2)*0
+			options.y1 = Math.sqrt(m1)*0
+			options.x2 = Math.sqrt(m2)*10
+			options.y2 = Math.sqrt(m1)*10
+			options.linecolor = 'hsla(0, 100%, 0%, 0.5)'
+			if (darkmode) {
+				options.linecolor = 'hsla(0, 100%, 100%, 0.7)'
+			}
+			options.strokedasharray = "5,5"
+			addLine('transformedpositionphasespacegraph', 'transformedpositionPhaseSpaceLinex=y' , options)
+
+
+			options = {}
+			options.x1 = Math.sqrt(m2)*(2)
+			options.y1 = Math.sqrt(m1)*(0)
+			options.x2 = Math.sqrt(m2)*(10)
+			options.y2 = Math.sqrt(m1)*(8)
+			options.linecolor = 'hsla(300, 100%, 50%, 0.5)'
+			if (darkmode) {
+				options.linecolor = 'hsla(300, 100%, 50%, 1)'
+			}
+			addLine('transformedpositionphasespacegraph', 'transformedpositionPhaseSpaceLinex=yshift' , options)
+
+			options = {}
+			options.x1 = Math.sqrt(m2)*(0)
+			options.y1 = Math.sqrt(m1)*(1)
+			options.x2 = Math.sqrt(m2)*(10)
+			options.y2 = Math.sqrt(m1)*(1)
+			options.linecolor = 'hsla(210, 100%, 50%, 0.5)'
+			if (darkmode) {
+				options.linecolor = 'hsla(210, 100%, 70%, 1)'
+			}
+			addLine('transformedpositionphasespacegraph', 'transformedpositionPhaseSpaceLinex=yshiftw' , options)
+
+			options = {}
+			options.x = (9*Math.sqrt(m2))
+			options.y = 0.05*(10*Math.sqrt(m2))/ppholderaratio
+			options.fontSize = 4
+			options.text = 'X2 = sqrt(m2)*x2'
+			options.textcolor = 'hsla(260, 100%, 50%, 1)'
+			if (darkmode) {
+				options.textcolor = 'hsla(260, 100%, 70%, 1)'
+			}
+			addText('transformedpositionphasespacegraph', 'transformedpositionphasespacegraphAxisX' , options)
+
+			options = {}
+			options.x = 0.01*(10*Math.sqrt(m2))
+			options.y = (10*Math.sqrt(m2))/ppholderaratio
+			options.fontSize = 4
+			options.text = 'X1 = sqrt(m1)*x1'
+			options.textcolor = 'hsla(190, 100%, 50%, 1)'
+			if (darkmode) {
+				options.textcolor = 'hsla(190, 100%, 70%, 1)'
+			}
+			addText('transformedpositionphasespacegraph', 'transformedpositionphasespacegraphAxisY' , options)
+
+			
+
+
+
+
+			billiardsgraphholder = document.getElementById('billiardsgraphholder')
+			billiardsgraphbox = document.getElementById('billiardsgraphbox')
+
+			ppholderaratio = billiardsgraphholder.offsetWidth/billiardsgraphholder.offsetHeight
+
+			// document.getElementById('billiardsgraphbox').style.width = (100/ppholderaratio) + '%'
+
+			graphoptions = {}
+			graphoptions.xmax = Math.sqrt(m2)*10
+			graphoptions.xmin = Math.sqrt(m2)*(-4)
+			graphoptions.ymax = (10*Math.sqrt(m2))/ppholderaratio
+			graphoptions.ymin = (-1*Math.sqrt(m2))/ppholderaratio
+			graphoptions.axislocationX = Math.sqrt(m2)*(3*boxwidth)
+			graphoptions.axislocationY = Math.sqrt(m1)*(boxwidth)
+
+			shift = (((-1*Math.sqrt(m2))*(-1)/ppholderaratio) - ((10*Math.sqrt(m2))*(-1)/ppholderaratio))/10
+			if (startingcollisiontype == 'W') {
+				graphoptions.ymax = (-1*Math.sqrt(m2))*(-1)/ppholderaratio + shift
+				graphoptions.ymin = (10*Math.sqrt(m2))*(-1)/ppholderaratio - shift
+				graphoptions.axislocationX = Math.sqrt(m2)*(3*boxwidth)
+				graphoptions.axislocationY = Math.sqrt(m1)*(boxwidth)
+			}
+
+			graphoptions.xaxislabelvisibility = 'no'
+			graphoptions.yaxislabelvisibility = 'no'
+
+			graphoptions.xaxisvisibility = 'yes'
+			graphoptions.yaxisvisibility = 'yes'
+			graphoptions.xmajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlabelvisibility = 'yes'
+
+
+			graphoptions.xmajorgridlabelshift = 4
+			graphoptions.ymajorgridlabelshift = -8
+
+			graphoptions.fontSize = 4.5
+
+			graphoptions.gridlinenumber = 2.9
+			graphoptions.xlabelexclusionsstart = 1
+			graphoptions.ylabelexclusionsstart = 1
+			graphoptions.ylabelexclusionsend = 1
+			addGraph(billiardsgraphbox , 'billiardsgraph', graphoptions)
+
+			options = {}
+			options.x1 = Math.sqrt(m2)*(3*boxwidth)
+			options.y1 = Math.sqrt(m1)*(boxwidth)
+			options.x2 = Math.sqrt(m2)*(10)
+			options.y2 = Math.sqrt(m1)*(8)
+			options.linecolor = 'hsla(300, 100%, 50%, 0.5)'
+			if (darkmode) {
+				options.linecolor = 'hsla(300, 100%, 70%, 1)'
+			}
+			options.strokewidth = 2
+			addLine('billiardsgraph', 'billiardsLinex=yshift' , options)
+
+			options = {}
+			options.x1 = Math.sqrt(m2)*(3*boxwidth)
+			options.y1 = Math.sqrt(m1)*(boxwidth)
+			options.x2 = Math.sqrt(m2)*(10)
+			options.y2 = Math.sqrt(m1)*(1)
+			options.linecolor = 'hsla(210, 100%, 50%, 0.5)'
+			if (darkmode) {
+				options.linecolor = 'hsla(210, 100%, 70%, 1)'
+			}
+			options.strokewidth = 2
+			addLine('billiardsgraph', 'billiardsLinex=yshiftw' , options)
+
+
+			theta = Math.atan(Math.sqrt(m1/m2))
+			billiardox = Math.sqrt(m2)*(3*boxwidth)
+			billiardoy = Math.sqrt(m1)*(boxwidth)
+			stretchR = Math.sqrt(m2)*(10) - billiardox
+
+			if (startingcollisiontype == 'A') {
+				thetastart = 2
+				thetaend = Math.PI/theta
+				thetadirection = 1
+				for (mtheta = thetastart; mtheta < thetaend; mtheta = mtheta + thetadirection) {
+					// console.log(mtheta)
+					tox = billiardox + stretchR*Math.cos(mtheta*theta)
+					toy = billiardoy + stretchR*Math.sin(theta*mtheta)
+					options = {}
+					options.x1 = billiardox
+					options.y1 = billiardoy
+					options.x2 = tox
+					options.y2 = toy
+					if (mtheta % 2 == 0) {
+						options.linecolor = 'hsla(210, 100%, 50%, 0.3)'
+						if (darkmode) {
+							options.linecolor = 'hsla(210, 100%, 70%, 0.6)'
+						}
+						options.strokewidth = 1.5
+					}
+					else {
+						options.linecolor = 'hsla(300, 100%, 50%, 0.3)'
+						if (darkmode) {
+							options.linecolor = 'hsla(300, 100%, 70%, 0.6)'
+						}
+						options.strokewidth = 1.5	
+					}
+					addLine('billiardsgraph', 'billiardsLine' + (theta*mtheta) , options)
+
+				}
+
+			}
+			else {
+				thetastart = -1
+				thetaend = (-1)*Math.PI/theta
+				thetadirection = -1
+
+				for (mtheta = thetastart; mtheta > thetaend; mtheta = mtheta + thetadirection) {
+					// console.log(mtheta)
+					tox = billiardox + stretchR*Math.cos(mtheta*theta)
+					toy = billiardoy + stretchR*Math.sin(theta*mtheta)
+					options = {}
+					options.x1 = billiardox
+					options.y1 = billiardoy
+					options.x2 = tox
+					options.y2 = toy
+					if (mtheta % 2 == 0) {
+						options.linecolor = 'hsla(210, 100%, 50%, 0.3)'
+						if (darkmode) {
+							options.linecolor = 'hsla(210, 100%, 70%, 0.6)'
+						}
+						options.strokewidth = 1.5
+					}
+					else {
+						options.linecolor = 'hsla(300, 100%, 50%, 0.3)'
+						if (darkmode) {
+							options.linecolor = 'hsla(300, 100%, 70%, 0.6)'
+						}
+						options.strokewidth = 1.5	
+					}
+					addLine('billiardsgraph', 'billiardsLine' + (theta*mtheta) , options)
+
+				}
+
+			}
+
+				
+
+			options = {}
+			options.x = 16
+			options.y = 0.4
+			options.pointcolor = 'hsla(40, 100%, 50%, 1)'
+			options.pointsize = 1
+			addPoint('billiardsgraph', 'billiardsPoint' , options)
+			
+			options = {}
+			options.x = 16
+			options.y = 0.4
+			options.pointcolor = 'hsla(40, 100%, 50%, 0.5)'
+			options.pointsize = 1
+			addPoint('billiardsgraph', 'billiardsPoint2' , options)
+
+			billiard2at0 = locationtimemap[0]
+			billiard2atstep = locationtimemap[timestep]
+
+			C = m1*(Math.pow(initvector[0], 2)) + m2*(Math.pow(initvector[1], 2))
+
+			velocityphasespacegraphholder = document.getElementById('velocityphasespacegraphholder')
+			velocityphasespacegraphbox = document.getElementById('velocityphasespacegraphbox')
+
+
+			ppholderaratio = velocityphasespacegraphholder.offsetWidth/velocityphasespacegraphholder.offsetHeight
+
+			// document.getElementById('velocityphasespacegraphbox').style.width = (100/ppholderaratio) + '%'
+
+			initalv1 = initvector[1]*(-1)
+
+			graphoptions = {}
+			graphoptions.xmax = Math.sqrt(C/m2) + 0.5
+			graphoptions.xmin = (Math.sqrt(C/m2) + 0.5)*(-1)
+			graphoptions.ymax = Math.sqrt(C/m1) + 0.5
+			graphoptions.ymin = (Math.sqrt(C/m1) + 0.5)*(-1)
+			graphoptions.axislocationX = 0
+			graphoptions.axislocationY = 0
+
+			graphoptions.xaxislabelvisibility = 'no'
+			graphoptions.yaxislabelvisibility = 'no'
+
+			graphoptions.xaxisvisibility = 'yes'
+			graphoptions.yaxisvisibility = 'yes'
+			graphoptions.xmajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlabelvisibility = 'yes'
+
+
+			graphoptions.xmajorgridlabelshift = 4
+			graphoptions.ymajorgridlabelshift = -8
+
+			graphoptions.fontSize = 4.5
+
+			graphoptions.gridlinenumber = 4
+			graphoptions.xlabelexclusionsstart = 1
+			graphoptions.ylabelexclusionsstart = 1
+			addGraph(velocityphasespacegraphbox , 'velocityphasespacegraph', graphoptions)
+
+			options = {}
+			options.x = 16
+			options.y = 0.4
+			options.pointcolor = 'hsla(2, 100%, 0%, 1)'
+			if (darkmode) {
+				options.pointcolor = 'hsla(1, 100%, 100%, 1)'
+			}
+			options.pointsize = 1
+			addPoint('velocityphasespacegraph', 'velocityPhaseSpacePoint' , options)
+			
+			options = {}
+			options.x = 0
+			options.y = 0
+			options.ry = Math.sqrt(C/m1)
+			options.rx = Math.sqrt(C/m2)
+			options.ellipsecolor = 'hsla(40, 100%, 50%, 0)'
+			options.strokewidth = 1
+			options.stroke = 'hsla(210, 100%, 50%, 0.5)'
+			if (darkmode) {
+				options.stroke = 'hsla(210, 100%, 70%, 1)'
+			}
+			addEllipse('velocityphasespacegraph', 'velocityPhaseSpaceEllipse' , options)
+
+			options = {}
+			options.x = Math.sqrt(C/m2) + 0.5
+			options.y = 0
+			options.fontSize = 4
+			options.text = 'v2'
+			options.textcolor = 'hsla(260, 100%, 50%, 1)'
+			if (darkmode) {
+				options.textcolor = 'hsla(260, 100%, 70%, 1)'
+			}
+			addText('velocityphasespacegraph', 'velocityphasespacegraphAxisX' , options)
+
+			options = {}
+			options.x = 0
+			options.y = Math.sqrt(C/m1) + 0.5
+			options.fontSize = 4
+			options.text = 'v1'
+			options.textcolor = 'hsla(190, 100%, 50%, 1)'
+			if (darkmode) {
+				options.textcolor = 'hsla(190, 100%, 70%, 1)'
+			}
+			addText('velocityphasespacegraph', 'velocityphasespacegraphAxisY' , options)
+
+			
+
+
+			transformedvelocityphasespacegraphholder = document.getElementById('transformedvelocityphasespacegraphholder')
+			transformedvelocityphasespacegraphbox = document.getElementById('transformedvelocityphasespacegraphbox')
+
+			ppholderaratio = transformedvelocityphasespacegraphholder.offsetWidth/transformedvelocityphasespacegraphholder.offsetHeight
+			
+			document.getElementById('transformedvelocityphasespacegraphbox').style.width = (100/ppholderaratio) + '%'
+
+			thepercent = (100/ppholderaratio)
+
+			// tppholderaratio = transformedvelocityphasespacegraphholder.offsetWidth/transformedvelocityphasespacegraphholder.offsetHeight
+
+			document.getElementById('transformedvelocityphasespacegraphspacer').style.width = (100 - thepercent)/2 + '%'
+
+
+			if (fixedInnerHValue < fixedInnerWValue) {
+				document.getElementById('transformedvelocityphasespacegraphspacer').style.height = '0%'
+
+			}
+
+
+
+			ppholderaratio = transformedvelocityphasespacegraphholder.offsetWidth/transformedvelocityphasespacegraphholder.offsetHeight
+
+			document.getElementById('transformedvelocityphasespacegraphbox').style.width = (100/ppholderaratio) + '%'
+
+			initalv1 = Math.abs(initvector[1])
+
+			graphoptions = {}
+			graphoptions.xmax = (Math.sqrt(C/m2))*Math.sqrt(m2) + 2
+			graphoptions.xmin = (Math.sqrt(C/m2))*(-1)*Math.sqrt(m2) - 2
+			graphoptions.ymax = (Math.sqrt(C/m1))*Math.sqrt(m1) + 2
+			graphoptions.ymin = ((Math.sqrt(C/m1))*(-1))*Math.sqrt(m1) - 2
+			graphoptions.axislocationX = 0
+			graphoptions.axislocationY = 0
+
+			graphoptions.xaxislabelvisibility = 'no'
+			graphoptions.yaxislabelvisibility = 'no'
+
+			graphoptions.xaxisvisibility = 'yes'
+			graphoptions.yaxisvisibility = 'yes'
+			graphoptions.xmajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlabelvisibility = 'yes'
+
+
+			graphoptions.xmajorgridlabelshift = 4
+			graphoptions.ymajorgridlabelshift = -8
+
+			graphoptions.fontSize = 4.5
+
+			graphoptions.gridlinenumber = 4
+			graphoptions.xlabelexclusionsstart = 1
+			graphoptions.ylabelexclusionsstart = 1
+			graphoptions.ylabelexclusionsend = 1
+			addGraph(transformedvelocityphasespacegraphbox , 'transformedvelocityphasespacegraph', graphoptions)
+
+			options = {}
+			options.x = 16
+			options.y = 0.4
+			options.pointcolor = 'hsla(2, 100%, 0%, 1)'
+			if (darkmode) {
+				options.pointcolor = 'hsla(210, 100%, 100%, 1)'
+			}
+			
+			options.pointsize = 1
+			addPoint('transformedvelocityphasespacegraph', 'TvelocityPhaseSpacePoint' , options)
+			
+			options = {}
+			options.x = 0
+			options.y = 0
+			options.ry =Math.sqrt(C/m1)*Math.sqrt(m1)
+			options.rx = Math.sqrt(C/m2)*Math.sqrt(m2)
+			options.ellipsecolor = 'hsla(40, 100%, 50%, 0)'
+			options.strokewidth = 1
+			options.stroke = 'hsla(210, 100%, 50%, 0.5)'
+			if (darkmode) {
+				options.stroke = 'hsla(210, 100%, 70%, 1)'
+			}
+			
+			addEllipse('transformedvelocityphasespacegraph', 'TvelocityPhaseSpaceEllipse' , options)
+
+			options = {}
+			options.x = (Math.sqrt(C/m2) - 0.7)*Math.sqrt(m2) + 2
+			options.y = 0.1*((Math.sqrt(C/m1))*Math.sqrt(m1) + 2)
+			options.fontSize = 4
+			options.text = 'V2 = sqrt(m2)*v2'
+			options.textcolor = 'hsla(260, 100%, 50%, 1)'
+			if (darkmode) {
+				options.textcolor = 'hsla(260, 100%, 70%, 1)'
+			}
+			
+			addText('transformedvelocityphasespacegraph', 'transformedvelocityphasespacegraphAxisX' , options)
+
+			options = {}
+			options.x = 0
+			options.y = (initalv1*Math.sqrt(m2/m1))*Math.sqrt(m1) + 2
+			options.fontSize = 4
+			options.text = 'V1 = sqrt(m1)*v1'
+			options.textcolor = 'hsla(190, 100%, 50%, 1)'
+			if (darkmode) {
+				options.textcolor = 'hsla(190, 100%, 70%, 1)'
+			}
+			
+			addText('transformedvelocityphasespacegraph', 'transformedvelocityphasespacegraphAxisY' , options)
+
+
+			worldlinegraphholder = document.getElementById('worldlinegraphholder')
+			worldlinegraphbox = document.getElementById('worldlinegraphbox')
+
+			ppholderaratio = worldlinegraphholder.offsetWidth/worldlinegraphholder.offsetHeight
+
+			// document.getElementById('worldlinegraphbox').style.width = (100/ppholderaratio) + '%'
+
+			graphoptions = {}
+			graphoptions.xmax = 30
+			graphoptions.xmin = -1
+			graphoptions.ymax = uptotime - 100
+			graphoptions.ymin = -1
+			graphoptions.axislocationX = 0
+			graphoptions.axislocationY = 0
+
+			graphoptions.xaxislabelvisibility = 'no'
+			graphoptions.yaxislabelvisibility = 'no'
+
+			graphoptions.xaxisvisibility = 'yes'
+			graphoptions.yaxisvisibility = 'yes'
+			graphoptions.xmajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlinesvisibility = 'no'
+			graphoptions.ymajorgridlabelvisibility = 'yes'
+
+
+			graphoptions.yaxislabel = 'time'
+			graphoptions.xaxislabel = 'position'
+
+
+			graphoptions.xmajorgridlabelshift = 2
+			graphoptions.ymajorgridlabelshift = 0
+
+			graphoptions.fontSize = 2.5
+
+			graphoptions.gridlinenumber = 6
+			graphoptions.xlabelexclusionsstart = 1
+			graphoptions.ylabelexclusionsstart = 1
+			graphoptions.ylabelexclusionsend = 1
+			addGraph(worldlinegraphbox , 'worldlinegraph', graphoptions)
+
+
+			for (colllision = 0; colllision < distancevalues.length - 1; colllision++) {
+				pos1 = distancevalues[colllision][0]
+				pos2 = distancevalues[colllision][1]
+				timev = timevalues[colllision]
+
+				pos1next = distancevalues[colllision + 1][0]
+				pos2next = distancevalues[colllision + 1][1]
+				timevnext = timevalues[colllision + 1]
+
+
+				options = {}
+				options.x1 = pos1
+				options.y1 = timev
+				options.x2 = pos1next
+				options.y2 = timevnext
+				options.linecolor = 'hsla(190, 100%, 50%, 0.5)'
+				if (darkmode) {
+					options.linecolor = 'hsla(190, 100%, 70%, 1)'
+				}
+				options.strokewidth = 2
+				addLine('worldlinegraph', 'worldline1-' + colllision , options)
+
+
+				options = {}
+				options.x1 = pos2
+				options.y1 = timev
+				options.x2 = pos2next
+				options.y2 = timevnext
+				options.linecolor = 'hsla(260, 100%, 50%, 0.5)'
+				if (darkmode) {
+					options.linecolor = 'hsla(260, 100%, 70%, 1)'
+				}
+				options.strokewidth = 2
+				addLine('worldlinegraph', 'worldline2-' + colllision , options)
+
+				// break
+
+			}
+
+
+			options = {}
+			options.x1 = 0
+			options.y1 = 0
+			options.x2 = 0
+			options.y2 = 0
+			options.linecolor = 'hsla(40, 100%, 50%, 0.5)'
+			options.strokedasharray = '5,5'
+			if (darkmode) {
+				options.linecolor = 'hsla(40, 100%, 70%, 1)'
+			}
+			options.strokewidth = 2
+			addLine('worldlinegraph', 'worldlinetimeline' , options)
+
+			options = {}
+			options.x = 31
+			options.y = 0
+			options.fontSize = 2.6
+			options.text = 'position'
+			options.textcolor = 'hsla(0, 100%, 0%, 1)'
+			if (darkmode) {
+				options.textcolor = 'hsla(0, 100%, 100%, 1)'
+			}
+			addText('worldlinegraph', 'worldlinegraphpostext' , options)
+
+			options = {}
+			options.x = 0
+			options.y = uptotime - 100
+			options.fontSize = 2.6
+			options.text = 'time'
+			options.textcolor = 'hsla(0, 100%, 0%, 1)'
+			if (darkmode) {
+				options.textcolor = 'hsla(0, 100%, 100%, 1)'
+			}
+			addText('worldlinegraph', 'worldlinegraphtimetext' , options)
+
+			options = {}
+			options.x = 5
+			options.y = 0
+			options.pointcolor = 'hsla(190, 100%, 50%, 1)'
+			if (darkmode) {
+				options.pointcolor = 'hsla(190, 100%, 80%, 1)'
+			}
+			options.pointsize = 0.7
+			addPoint('worldlinegraph', 'worldlinegraphpoint1' , options)
+
+			options = {}
+			options.x = 5
+			options.y = 0
+			options.pointcolor = 'hsla(260, 100%, 50%, 1)'
+			if (darkmode) {
+				options.pointcolor = 'hsla(260, 100%, 80%, 1)'
+			}
+			options.pointsize = 0.7
+			addPoint('worldlinegraph', 'worldlinegraphpoint2' , options)
+
+
+
+
+		
+
+			linesofVgraph = []
+			pointsofVgraph = []
+			linesofTVgraph = []
+			pointsofTVgraph = []
+			
+			collisionFlag = false
+			deleteflag = true
+			currenttime = 0
+			t = 0
+
+			// Loop()
+		}
+
+
+
+		function deleteObjects(set) {
+			for (s= 0; s < set.length; s++) {
+				set[s].outerHTML = ''
+			}
+		}
+
+
+		function Loop() {
+			var loopinterval = setInterval(frame, 10);
+			function frame() {
+				// console.log(t)
+				if (t < uptotime) {
+					// console.log(timestep)
+
+					options = {}
+					options.y1 = t
+					options.y2 = t
+					options.x1 = -10
+					options.x2 = 40
+
+					updateLine('worldlinegraph', 'worldlinetimeline', options) 
+
+					if (collisionFlag == false) {
+						t = t + timestep
+						currenttime = t
+						options = {}
+						options.text = 'Time : ' + t.toFixed(3)
+						updateText('mainsimulation', 'timetext', options)
+						clstimes = checkifcollision(t, timestep)
+						// console.log(clstimes)
+						if (clstimes.length != 0) {
+							collisionFlag = true
+							clstimecount = 0
+						}
+
+						options = {}
+						// console.log(findnearesttime(t, timestep))
+						lmap = locationtimemap[findnearesttime(t, timestep)]
+						options.x = lmap[0] - boxwidth
+						// if (typeof locationtimemap[findnearesttime(t, timestep)][0] == 'undefined') {
+						
+						// }
+						px1 = options.x
+						updateRectangle('mainsimulation', 'mass1rect', options)
+						updateRectangle('minisimulationbar', 'mass1rectmini', options)
+						
+						options = {}
+						// console.log(t)
+						options.x = lmap[1] - boxwidth
+						px2 = options.x
+						updateRectangle('mainsimulation', 'mass2rect', options)
+						updateRectangle('minisimulationbar', 'mass2rectmini', options)
+
+						options = {}
+						options.x = px1 + boxwidth
+						updateText('mainsimulation', 'mass1textinfo', options)
+						updateText('mainsimulation', 'block1textinfo', options)
+
+
+
+						options = {}
+						options.x = px2 + boxwidth
+						updateText('mainsimulation', 'mass2textinfo', options)
+						updateText('mainsimulation', 'block2textinfo', options)
+					
+						
+						
+					}
+					else {
+						if (clstimecount < clstimes.length) {
+							ctime = clstimes[clstimecount]
+							// console.log(ctime)
+							currenttime = ctime
+							lmap = locationtimemap[ctime]
+
+							options.x = lmap[0] - boxwidth
+							// if (typeof locationtimemap[findnearesttime(t, timestep)][0] == 'undefined') {
+							
+							// }
+							px1 = options.x
+							updateRectangle('mainsimulation', 'mass1rect', options)
+							updateRectangle('minisimulationbar', 'mass1rectmini', options)
+						
+							options = {}
+							// console.log(t)
+							options.x = lmap[1] - boxwidth
+							px2 = options.x
+							updateRectangle('mainsimulation', 'mass2rect', options)
+							updateRectangle('minisimulationbar', 'mass2rectmini', options)
+
+
+							options = {}
+							options.x = px1 + boxwidth
+							updateText('mainsimulation', 'mass1textinfo', options)
+
+
+							options = {}
+							options.x = px2 + boxwidth
+							updateText('mainsimulation', 'mass2textinfo', options)
+						
+
+							if (collisiontimescounter > 1) {
+								options = {}
+								options.x1 = velocityvalues[collisiontimescounter - 1 - (clstimes.length - clstimecount - 1)][1]
+								options.y1 = velocityvalues[collisiontimescounter - 1 - (clstimes.length - clstimecount - 1)][0]
+								options.x2 = velocityvalues[collisiontimescounter - 2 - (clstimes.length - clstimecount - 1)][1]
+								options.y2 = velocityvalues[collisiontimescounter - 2 - (clstimes.length - clstimecount - 1)][0]
+								options.linecolor = 'hsla(40, 100%, 50%, 0.5)'
+								options.strokewidth = 2
+								addedlinedata = addLine('velocityphasespacegraph', 'velocityPhaseSpaceLine' + collisiontimescounter , options)
+								// console.log(collisiontimescounter)
+								linesofVgraph.push(addedlinedata[0])
+
+								options = {}
+								options.x = velocityvalues[collisiontimescounter - 2 - (clstimes.length - clstimecount - 1)][1]
+								options.y = velocityvalues[collisiontimescounter - 2 - (clstimes.length - clstimecount - 1)][0]
+								options.pointcolor = 'hsla(2, 100%, 0%, 0.4)'
+								if (darkmode) {
+									options.pointcolor = 'hsla(210, 100%, 100%, 1)'
+								}
+								
+								options.pointsize = 0.7
+								addedpointdata = addPoint('velocityphasespacegraph', 'velocityPhaseSpacePoint' + collisiontimescounter , options)
+
+								pointsofVgraph.push(addedpointdata[0])
+
+								options = {}
+								options.text = 'Velocity 1 : ' + velocityvalues[collisiontimescounter - 1 - (clstimes.length - clstimecount - 1)][0].toFixed(4)
+								updateText('mainsimulation', 'velocity1text' , options)
+
+								options = {}
+								options.text = 'Velocity 2 : ' + velocityvalues[collisiontimescounter - 1 - (clstimes.length - clstimecount - 1)][1].toFixed(3)
+								updateText('mainsimulation', 'velocity2text' , options)
+
+								options = {}
+								options.x1 = velocityvalues[collisiontimescounter - 1 - (clstimes.length - clstimecount - 1)][1]*Math.sqrt(m2)
+								options.y1 = velocityvalues[collisiontimescounter - 1 - (clstimes.length - clstimecount - 1)][0]*Math.sqrt(m1)
+								options.x2 = velocityvalues[collisiontimescounter - 2 - (clstimes.length - clstimecount - 1)][1]*Math.sqrt(m2)
+								options.y2 = velocityvalues[collisiontimescounter - 2 - (clstimes.length - clstimecount - 1)][0]*Math.sqrt(m1)
+								options.linecolor = 'hsla(40, 100%, 50%, 0.3)'
+								options.strokewidth = 2
+								addedlinedata = addLine('transformedvelocityphasespacegraph', 'TvelocityPhaseSpaceLine' + collisiontimescounter , options)
+								// console.log(collisiontimescounter)
+								linesofTVgraph.push(addedlinedata[0])
+
+								options = {}
+								options.x = velocityvalues[collisiontimescounter - 2 - (clstimes.length - clstimecount - 1)][1]*Math.sqrt(m2)
+								options.y = velocityvalues[collisiontimescounter - 2 - (clstimes.length - clstimecount - 1)][0]*Math.sqrt(m1)
+								options.pointcolor = 'hsla(2, 100%, 0%, 0.4)'
+								if (darkmode) {
+									options.pointcolor = 'hsla(210, 100%, 100%, 1)'
+								}
+								options.pointsize = 0.7
+								addedpointdata = addPoint('transformedvelocityphasespacegraph', 'TvelocityPhaseSpacePoint' + collisiontimescounter , options)
+
+								pointsofTVgraph.push(addedpointdata[0])
+
+								options = {}
+								options.x1 = 0
+								options.y1 = 0
+								options.x2 = velocityvalues[collisiontimescounter - 2 - (clstimes.length - clstimecount - 1)][1]*Math.sqrt(m2)
+								options.y2 = velocityvalues[collisiontimescounter - 2 - (clstimes.length - clstimecount - 1)][0]*Math.sqrt(m1)
+								options.linecolor = 'hsla(220, 100%, 50%, 1)'
+								if (darkmode) {
+									options.linecolor = 'hsla(220, 100%, 70%, 1)'
+								}
+								options.strokewidth = 2
+								addedlinedata = addLine('transformedvelocityphasespacegraph', 'TvelocityPhaseSpaceLine2' + collisiontimescounter , options)
+								// console.log(collisiontimescounter)
+								linesofTVgraph.push(addedlinedata[0])
+
+								options = {}
+								options.text = 'Collisions : ' + (collisiontimescounter - 1)
+								updateText('mainsimulation', 'collisiontext', options)
+
+						
+						
+
+								
+							}
+							clstimecount = clstimecount + 1
+							
+						}
+						else {
+							collisionFlag = false
+						}
+					}
+						
+					updatePoint('positionphasespacegraph', 'positionPhaseSpacePoint', px2 + boxwidth, px1 + boxwidth)
+					updatePoint('positionphasespacegraph', 'positionPhaseSpacePoint1', px2 + boxwidth, 0)
+					updatePoint('positionphasespacegraph', 'positionPhaseSpacePoint2', 0, px1 + boxwidth)
+
+					updatePoint('worldlinegraph', 'worldlinegraphpoint1', px1 + boxwidth, t)
+
+					updatePoint('worldlinegraph', 'worldlinegraphpoint2', px2 + boxwidth, t)
+
+					updatePoint('transformedpositionphasespacegraph', 'transformedpositionPhaseSpacePoint', Math.sqrt(m2)*(px2 + boxwidth), Math.sqrt(m1)*(px1 + boxwidth))
+					updatePoint('transformedpositionphasespacegraph', 'transformedpositionPhaseSpacePoint1', Math.sqrt(m2)*(px2 + boxwidth), 0)
+					updatePoint('transformedpositionphasespacegraph', 'transformedpositionPhaseSpacePoint2', 0, Math.sqrt(m1)*(px1 + boxwidth))
+
+					updatePoint('billiardsgraph', 'billiardsPoint', Math.sqrt(m2)*(px2 + boxwidth), Math.sqrt(m1)*(px1 + boxwidth))
+
+
+					// Billiard2 point calculation
+					tinput = currenttime/timestep
+					billiard2atTx = billiard2at0[0]*(1 - tinput) + billiard2atstep[0]*tinput
+					billiard2atTy = billiard2at0[1]*(1 - tinput) + billiard2atstep[1]*tinput
+
+					updatePoint('billiardsgraph', 'billiardsPoint2', Math.sqrt(m2)*(billiard2atTy), Math.sqrt(m1)*(billiard2atTx))
+
+					updatePoint('velocityphasespacegraph', 'velocityPhaseSpacePoint', velocityvalues[collisiontimescounter - 1][1], velocityvalues[collisiontimescounter - 1][0])
+
+					updatePoint('transformedvelocityphasespacegraph', 'TvelocityPhaseSpacePoint', velocityvalues[collisiontimescounter - 1][1]*Math.sqrt(m2), velocityvalues[collisiontimescounter - 1][0]*Math.sqrt(m1))
+
+
+
+
+					
+			
+			
+			
+					// updatePoint('mainsimulation', 'velocityPhaseSpacePoint', Math.cos(t), Math.sin(t))
+				}
+			}
+		}
+
+		allInitialContent()
+
+		Loop()
+
+
+		function lightMode() {
+			document.body.style.backgroundColor = 'white'
+			document.body.style.color = 'black'
+			document.getElementById('titletextlink').style.color = 'hsla(210,100%,50%,1)'
+			document.getElementById('titletextlink').style.textDecoration = 'none'
+
+			document.getElementById('websitetextlink').style.color = 'hsla(210,100%,50%,1)'
+			document.getElementById('websitetextlink').style.textDecoration = 'none'
+
+			document.getElementById('3b1bvideolink').style.color = 'hsla(210,100%,50%,1)'
+			document.getElementById('3b1bvideolink').style.textDecoration = 'none'
+
+
+			document.getElementById('galperinlink').style.color = 'hsla(210,100%,50%,1)'
+			document.getElementById('galperinlink').style.textDecoration = 'none'
+
+			document.getElementById('mass2input').style.color = 'hsla(40,100%,0%,1)'
+			document.getElementById('mass2input').style.textDecoration = 'none'
+
+			document.getElementById('initialvelocity1input').style.color = 'hsla(40,100%,0%,1)'
+			document.getElementById('initialvelocity1input').style.textDecoration = 'none'
+
+			document.getElementById('initialvelocity2input').style.color = 'hsla(40,100%,0%,1)'
+			document.getElementById('initialvelocity2input').style.textDecoration = 'none'
+			
+			
+			
+		}
+
+		function darkMode() {
+			document.body.style.backgroundColor = 'black'
+			document.body.style.color = 'white'
+			document.getElementById('titletextlink').style.color = 'hsla(10,100%,100%,1)'
+			document.getElementById('titletextlink').style.textDecoration = 'none'
+
+			document.getElementById('websitetextlink').style.color = 'hsla(190,100%,80%,1)'
+			document.getElementById('websitetextlink').style.textDecoration = 'none'
+
+			document.getElementById('3b1bvideolink').style.color = 'hsla(40,100%,80%,1)'
+			document.getElementById('3b1bvideolink').style.textDecoration = 'none'
+
+
+			document.getElementById('galperinlink').style.color = 'hsla(40,100%,80%,1)'
+			document.getElementById('galperinlink').style.textDecoration = 'none'
+
+			document.getElementById('mass2input').style.color = 'hsla(40,100%,100%,1)'
+			document.getElementById('mass2input').style.textDecoration = 'none'
+
+			document.getElementById('initialvelocity1input').style.color = 'hsla(40,100%,100%,1)'
+			document.getElementById('initialvelocity1input').style.textDecoration = 'none'
+
+			document.getElementById('initialvelocity2input').style.color = 'hsla(40,100%,100%,1)'
+			document.getElementById('initialvelocity2input').style.textDecoration = 'none'
+			
+			
+			
+		}
+
+
+		function setMode() {
+			if (darkmode) {
+				darkmode = false
+				document.getElementById('darkmodetext').innerHTML = 'Dark Mode'
+				document.getElementById('darkmodetext').style.color = 'black'
+				lightMode()
+			}
+			else {
+				darkmode = true
+				document.getElementById('darkmodetext').innerHTML = 'Light Mode'
+				document.getElementById('darkmodetext').style.color = 'white'
+				darkMode()
+			}
+			allInitialContent()
+		}
+
+		function displaypossiblemodeover() {
+			if (darkmode) {
+				document.body.style.backgroundColor = 'white'
+				document.body.style.color = 'black'
+				
+				// document.getElementById('darkmodetext').innerHTML = 'Dark Mode'
+				document.getElementById('darkmodetext').style.color = 'black'
+				
+				
+			}
+			else {
+				document.body.style.backgroundColor = 'black'
+				document.body.style.color = 'white'
+				// document.getElementById('darkmodetext').innerHTML = 'Light Mode'
+				document.getElementById('darkmodetext').style.color = 'white'
+				
+			}
+		}
+
+		function displaypossiblemodeout() {
+			if (darkmode) {
+				document.body.style.backgroundColor = 'black'
+				document.body.style.color = 'white'
+				
+				
+				
+				document.getElementById('darkmodetext').innerHTML = 'Light Mode'
+				document.getElementById('darkmodetext').style.color = 'white'
+
+			}
+			else {
+				
+				document.body.style.backgroundColor = 'white'
+				document.body.style.color = 'black'
+
+				document.getElementById('darkmodetext').innerHTML = 'Dark Mode'
+				document.getElementById('darkmodetext').style.color = 'black'
+				
+				
+			}
+		}
+
+
+		document.getElementById('darkmodetext').addEventListener('click', setMode)
+		document.getElementById('darkmodetext').addEventListener('mouseover', displaypossiblemodeover)
+		document.getElementById('darkmodetext').addEventListener('mouseout', displaypossiblemodeout)
+
+
+
+
+
+
+
+
+		
+		</script>
+
+
+
+	</body>
+<html>
