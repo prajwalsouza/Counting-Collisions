@@ -3,7 +3,7 @@
 An [interative/simulation](https://prajwalsouza.github.io/Experiments/Colliding-Blocks.html) inspired by an awesome [video](https://www.youtube.com/watch?v=HEfHFsfGXjs) by [3Blue1Brown](https://www.youtube.com/channel/UCYO_jab_esuFRV4b17AJtAw).
 
 ### Update (5th July 2019)
-Just came across some [good work](https://github.com/asa55/Counting-Collisions-Before-And-After) by github user [asa55](https://github.com/asa55), which involved, refining and simplying the code used in this project. Please refer to that version if you want to use the framework and the code used in this project. 
+Just came across some [good work](https://github.com/asa55/Counting-Collisions-Before-And-After) by github user [asa55](https://github.com/asa55), which involved, refining and simplying the code used in this project. Please refer to that version if you want to use the framework and the code used in this project. And, also check out the other projects there. 
 
 ### Update (13th Feb 2019)
 
